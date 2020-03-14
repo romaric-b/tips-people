@@ -28,6 +28,7 @@ class Comment
     private $comment_read_fr;
     private $comment_vote;
     public $msg;
+    //test
 
     public function __construct(array $datas = array())
     {
