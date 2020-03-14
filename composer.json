@@ -1,0 +1,12 @@
+{
+  "name": "tips-people/",
+  "description": "Plateforme sociale des investisseurs",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Romaric Blot",
+      "email": "blot.romaric@gmail.com"
+    }
+  ]
+}
