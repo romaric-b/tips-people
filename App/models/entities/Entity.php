@@ -1,29 +1,50 @@
 <?php
 
+//namespace Entities;
+namespace App\models\entities;
 
 abstract class Entity
 {
-    public function __construct(array $datas = array())
-    {
-        if (!empty($datas))
-        {
-            $this->hydrate($datas);
-        }
-    }
+    private $attributs = [];
 
-    /**
-     * @param array $datas setted to my entity's parameters
-     */
-    public function hydrate(array $datas)
+    public function __construct(array $attributs = [])
     {
-        foreach ($datas as $key => $value)
+        if (!empty($attributs))
         {
-            $method = 'set'.ucfirst($key);
-            //call the good method of my class if she exists
-            if (method_exists($this, $method))
+            //$this->hydrate($attributs);
+            foreach ($attributs as $attribut => $value)
             {
-                $this->$method($value);
+                //$this->__set($attribut, $value);
+                $this->{$attribut} = $value;
             }
         }
     }
+
+    public function __set($attribut, $value)
+    {
+        //je peux pas mettre de variable en guise d'attribut, mais si je concatène $ et chaine j'ai une variable
+        //$this->attributs['$' . $attribut] = $value;
+        $this->attributs[$attribut] = $value;
+    }
+
+    public function __get($attribut)
+    {
+        if (isset($this->attributs[$attribut]))
+        {
+            return $this->attributs[$attribut];
+        }
+    }
+
+//    public function __isset($nom)
+//    {
+//        return isset($this->attributs[$nom]);
+//    }
+//
+//    public function __unset($nom)
+//    {
+//        if (isset($this->attributs[$nom]))
+//        {
+//            unset($this->attributs[$nom]);
+//        }
+//    }
 }
