@@ -13,6 +13,7 @@ class User
      * @var string $user_password2
      * @var string $user_role
      * @var string $user_grade
+     * @var string $user_number_speech number posts and comments
      */
     private $user_id;
     private $user_nickname;
@@ -23,6 +24,7 @@ class User
     private $user_password2;
     private $user_role;
     private $user_grade;
+    private $user_number_speech;
     public $msg;
 
     public function __construct(array $datas = array())
