@@ -3,7 +3,7 @@
 
 use App\models\entities\Entity;
 
-class Comment extends Entity
+class Comment extends Entity //ok
 {
     /**
      * @var $c_id int id of comment

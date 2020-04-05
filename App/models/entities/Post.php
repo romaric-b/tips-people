@@ -3,7 +3,7 @@
 use App\models\entities\Entity;
 //require 'App/models/entities/Entity.php';
 
-class Post extends Entity
+class Post extends Entity //ok
 {
 
     /**

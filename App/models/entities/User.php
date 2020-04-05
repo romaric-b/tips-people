@@ -5,7 +5,7 @@ namespace App\models\entities;
 use App\models\entities\Entity;
 require 'App/models/entities/Entity.php';
 
-class User extends Entity
+class User extends Entity //ok
 {
     /**
      * private accessible only into this class

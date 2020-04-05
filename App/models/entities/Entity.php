@@ -3,7 +3,7 @@
 //namespace Entities;
 namespace App\models\entities;
 
-abstract class Entity
+abstract class Entity //testé ok
 {
     public function __construct(array $datas = [])
     {
@@ -19,6 +19,8 @@ abstract class Entity
     }
 
     /** Set est une méthode magique et set directement un attribut ex : $tonObjet->UnAttribut = "quelquechose". Si "UnAttribut" n'est pas définis dans les attributs de la  classe.
+     *
+     * test ok
      * @param $attribut
      * @param $value
      */
