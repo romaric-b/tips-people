@@ -18,9 +18,18 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      *
      *************************************************************************************************/
 
-    public function create()
+    /**
+     * @param $fields sql
+     * @param string|null $value values sql (exemple : NOW(), :title)
+     * @param array $data array key -> value
+     */
+    public function create($fields, ?string $value = '', array $data = [])
     {
+        $query = $this->pdo->prepare("INSERT INTO {$this->table}
+                ($fields) 
+                VALUES ($value)");
 
+        $query->execute($data);
     }
 
     /**************************************************************************************************
@@ -70,9 +79,18 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      *
      *************************************************************************************************/
 
-    public function update()
+    public function update(?array $set = [], ?string $where = "", ?array $data)
     {
+        //TODO les clé du set seront les mêmes que celle du execute donc 1 entrée retournera 2 résultats dont l'un en dessous pour le set et l'autre pour l'execute
+        //TODO dans le contrôleur ou ici il faudra utiliser une méthode transformant un array en string
 
+        $query = $this->pdo->prepare(
+            "UPDATE {$this->table}
+             set . $set . WHERE $where");
+
+        $query->execute($data);
+
+        return $query->execute();
     }
 
 
