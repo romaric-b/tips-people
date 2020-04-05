@@ -53,3 +53,6 @@ var_dump($user);
 
 //var_dump($post->$p_id);
 //var_dump($comment->c_status);
+
+//TODO Test du manager à faire avec adaptations pour les variables
+//TODO controlers + interface ou class static de contrôles d'attributs
