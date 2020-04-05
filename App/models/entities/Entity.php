@@ -5,14 +5,12 @@ namespace App\models\entities;
 
 abstract class Entity
 {
-    private $attributs = [];
-
-    public function __construct(array $attributs = [])
+    public function __construct(array $datas = [])
     {
-        if (!empty($attributs))
+        if (!empty($datas))
         {
             //$this->hydrate($attributs);
-            foreach ($attributs as $attribut => $value)
+            foreach ($datas as $attribut => $value)
             {
                 //$this->__set($attribut, $value);
                 $this->{$attribut} = $value;
@@ -20,31 +18,22 @@ abstract class Entity
         }
     }
 
+    /** Set est une méthode magique et set directement un attribut ex : $tonObjet->UnAttribut = "quelquechose". Si "UnAttribut" n'est pas définis dans les attributs de la  classe.
+     * @param $attribut
+     * @param $value
+     */
     public function __set($attribut, $value)
     {
-        //je peux pas mettre de variable en guise d'attribut, mais si je concatène $ et chaine j'ai une variable
-        //$this->attributs['$' . $attribut] = $value;
-        $this->attributs[$attribut] = $value;
-    }
-
-    public function __get($attribut)
-    {
-        if (isset($this->attributs[$attribut]))
+        if (property_exists($this, $attribut))
         {
-            return $this->attributs[$attribut];
+            $this->$attribut = $value;
         }
+        //var_dump($this);
+        return $this;
     }
 
-//    public function __isset($nom)
-//    {
-//        return isset($this->attributs[$nom]);
-//    }
-//
-//    public function __unset($nom)
-//    {
-//        if (isset($this->attributs[$nom]))
-//        {
-//            unset($this->attributs[$nom]);
-//        }
-//    }
+    public function __get($property)
+    {
+        return $this->$property;
+    }
 }

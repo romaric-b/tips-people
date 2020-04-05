@@ -9,31 +9,21 @@ class User extends Entity
 {
     /**
      * private accessible only into this class
-     * @var  $user_id
-     * @var string $user_nickname
-     * @var string $user_regist_date
-     * @var string $user_email
-     * @var string $user_password
-     * @var string $user_password2
-     * @var string $user_role
-     * @var string $user_grade
-     * @var string $user_number_speech number posts and comments
+     * @var  int $u_id
+     * @var string $u_nickname
+     * @var string $u_datetime
+     * @var string $u_email
+     * @var string $u_password
+     * @var string $u_role
+     * @var string $u_grade
+     * @var string $u_number_speech number posts and comments
      */
-    private $id;
-    private $nickname;
-    private $regist_date;
-    private $regist_date_fr;
-    private $email;
-    private $password;
-    private $password2;
-    private $role;
-    private $grade;
-    private $user_number_speech;
-    public $msg;
-
-    public function test()
-    {
-        var_dump('User chargé');
-    }
-
+    public $u_id;
+    public $u_nickname;
+    public $u_datetime;
+    public $u_email;
+    public $u_password;
+    public $u_role;
+    public $u_grade;
+    public $u_number_speech;
 }

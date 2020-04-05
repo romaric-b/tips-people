@@ -1,33 +1,29 @@
 <?php
 
 
+use App\models\entities\Entity;
 
-class Comment
+class Comment extends Entity
 {
     /**
-     * @var int $comment_id
-     * @var string enum('Non signalé' || 'Signalé' || 'Modéré') $comment_status
-     * @var datetime $comment_date
-     * @var string $comment_content
-     * @var int $comment_post_id foreign key
-     * @var int $comment_user_id foreign key
-     * @var string $comment_read enum('lu' || 'non lu')
-     * @var int $comment_vote
+     * @var $c_id int id of comment
+     * @var $c_post_fk int post id
+     * @var $c_author_fk int user comment's author
+     * @var $c_reporting string - enum('Signalé', 'Non signalé', 'Modéré')
+     * @var $c_status string -enum('Lu', 'Non lu')
+     * @var $c_datetime string datetime TODO formater date soit dans model soit via la class de controles
+     * @var $c_title string title of comment varchar(150)
+     * @var $c_content string text content of comment
+     * @var $c_vote int number of votes for this comment
      */
-    private $comment_id;
-    private $comment_status;
-    private $comment_status_fr;
-    private $comment_date;
-    private $comment_date_fr;
-    private $comment_content;
-    private $comment_post_id; //foreign key
-    private $comment_post_title;
-    private $comment_user_id; //foreign key
-    private $author;
-    private $comment_read;
-    private $comment_read_fr;
-    private $comment_vote;
-    public $msg;
-    //test
+    public $c_id;
+    public $c_post_fk; //foreign key
+    public $c_author_fk; //foreign key
+    public $c_reporting;
+    public $c_status;
+    public $c_datetime;
+    public $c_title;
+    public $c_content;
+    public $c_vote;
 
 }
