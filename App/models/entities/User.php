@@ -1,226 +1,29 @@
 <?php
 
+namespace App\models\entities;
 
-class User
+use App\models\entities\Entity;
+require 'App/models/entities/Entity.php';
+
+class User extends Entity //ok
 {
     /**
      * private accessible only into this class
-     * @var  $user_id
-     * @var string $user_nickname
-     * @var string $user_regist_date
-     * @var string $user_email
-     * @var string $user_password
-     * @var string $user_password2
-     * @var string $user_role
-     * @var string $user_grade
-     * @var string $user_number_speech number posts and comments
+     * @var  int $u_id
+     * @var string $u_nickname
+     * @var string $u_datetime
+     * @var string $u_email
+     * @var string $u_password
+     * @var string $u_role
+     * @var string $u_grade
+     * @var string $u_number_speech number posts and comments
      */
-    private $user_id;
-    private $user_nickname;
-    private $user_regist_date;
-    private $user_regist_date_fr;
-    private $user_email;
-    private $user_password;
-    private $user_password2;
-    private $user_role;
-    private $user_grade;
-    private $user_number_speech;
-    public $msg;
-
-    public function __construct(array $datas = array())
-    {
-        if (!empty($datas))
-        {
-            $this->hydrate($datas);
-        }
-    }
-
-    /**
-     * @param array $datas setted to my entity's parameters
-     */
-    public function hydrate(array $datas)
-    {
-        foreach ($datas as $key => $value)
-        {
-            $method = 'set'.ucfirst($key);
-            //call the good method of my class if she exists
-            if (method_exists($this, $method))
-            {
-                $this->$method($value);
-            }
-        }
-    }
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///         SETTERS
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///
-    /**
-     * @param mixed $user_id
-     */
-    public function setUserId($user_id)
-    {
-        $this->user_id = $user_id;
-    }
-
-    public function setNickname($nickname)
-    {
-        if(isset($nickname))
-        {
-            if (!empty($nickname))
-            {
-                if(is_string($nickname) && strlen($nickname) <= 30 )
-                {
-                    $this->user_nickname = htmlspecialchars($nickname);
-                }
-                else
-                {
-                    $this->msg = 'Mauvais format du champ pseudo';
-                    return;
-                }
-            }
-            else
-            {
-                $this->msg = 'champ pseudo vide';
-                return;
-            }
-        }
-        else
-        {
-            $this->msg = 'variable non définie';
-            return;
-        }
-    }
-
-    public function setRegistDate($user_regist_date)
-    {
-        $this->user_regist_date = $user_regist_date;
-    }
-
-    public function setRegistDateFr($user_regist_date_fr)
-    {
-        $this->user_regist_date_fr = $user_regist_date_fr;
-    }
-
-    public function setEmail($email)
-    {
-        if(isset($email))
-        {
-            if (!empty($email))
-            {
-                if(is_string($email) && strlen($email) <= 30 && preg_match ("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email))
-                {
-                    $this->user_email = htmlspecialchars($email);
-                }
-                else
-                {
-                    $this->msg = 'Mauvais format du champ email';
-                    return;
-                }
-            }
-            else
-            {
-                $this->msg = 'champ email vide';
-                return;
-            }
-        }
-        else
-        {
-            $this->msg = 'variable non définie';
-            return;
-        }
-    }
-
-    /**
-     * @return mixed $password
-     */
-    public function setPassword($password)
-    {
-        htmlspecialchars($password);
-
-        if (isset($password) && !empty($password) && is_string($password) && strlen($password) <= 30)
-        {
-            $this->user_password = $password;
-        }
-    }
-
-    public function setPassword2($password2)
-    {
-
-        htmlspecialchars($password2);
-
-        if (isset($password2) && !empty($password2) && is_string($password2) && strlen($password2) <= 30)
-        {
-            $this->user_password2 = $password2;
-        }
-    }
-
-    /**
-     * @param mixed $user_role
-     */
-    public function setRole($user_role)
-    {
-        $this->user_role = $user_role;
-    }
-
-    /**
-     * @param mixed $user_grade
-     */
-    public function setUserGrade($user_grade)
-    {
-        $this->user_grade = $user_grade;
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //      GETTERS
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    public function getNickname()
-    {
-        return $this->user_nickname;
-    }
-
-    public function getRegistDate()
-    {
-        return $this->user_regist_date_fr;
-    }
-
-    public function getEmail()
-    {
-        return $this->user_email;
-    }
-
-    public function getPassword()
-    {
-        return $this->user_password;
-    }
-
-    public function getPassword2()
-    {
-        return $this->user_password2;
-    }
-
-    public function getRole()
-    {
-        return $this->user_role;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUserGrade()
-    {
-        return $this->user_grade;
-    }
-
-    public function getMessage()
-    {
-        return $this->msg;
-    }
+    public $u_id;
+    public $u_nickname;
+    public $u_datetime;
+    public $u_email;
+    public $u_password;
+    public $u_role;
+    public $u_grade;
+    public $u_number_speech;
 }

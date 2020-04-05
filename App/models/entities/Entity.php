@@ -1,29 +1,41 @@
 <?php
 
+//namespace Entities;
+namespace App\models\entities;
 
-abstract class Entity
+abstract class Entity //testé ok
 {
-    public function __construct(array $datas = array())
+    public function __construct(array $datas = [])
     {
         if (!empty($datas))
         {
-            $this->hydrate($datas);
+            //$this->hydrate($attributs);
+            foreach ($datas as $attribut => $value)
+            {
+                //$this->__set($attribut, $value);
+                $this->{$attribut} = $value;
+            }
         }
     }
 
-    /**
-     * @param array $datas setted to my entity's parameters
+    /** Set est une méthode magique et set directement un attribut ex : $tonObjet->UnAttribut = "quelquechose". Si "UnAttribut" n'est pas définis dans les attributs de la  classe.
+     *
+     * test ok
+     * @param $attribut
+     * @param $value
      */
-    public function hydrate(array $datas)
+    public function __set($attribut, $value)
     {
-        foreach ($datas as $key => $value)
+        if (property_exists($this, $attribut))
         {
-            $method = 'set'.ucfirst($key);
-            //call the good method of my class if she exists
-            if (method_exists($this, $method))
-            {
-                $this->$method($value);
-            }
+            $this->$attribut = $value;
         }
+        //var_dump($this);
+        return $this;
+    }
+
+    public function __get($property)
+    {
+        return $this->$property;
     }
 }
