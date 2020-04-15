@@ -1,9 +1,6 @@
 <?php
 
-namespace App\models\entities;
-
-use App\models\entities\Entity;
-require 'App/models/entities/Entity.php';
+namespace models\entities;
 
 class User extends Entity //ok
 {

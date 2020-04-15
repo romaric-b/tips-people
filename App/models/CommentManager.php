@@ -1,8 +1,8 @@
 <?php
 
-namespace Models;
+namespace models;
 
-class CommentManager
+class CommentManager extends Manager
 {
     //Define properties declared in Manager pour my Post Manager
     protected $table = "comment";

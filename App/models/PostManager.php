@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace models;
 
 class PostManager extends Manager
 {
@@ -9,3 +9,4 @@ class PostManager extends Manager
 
     //Functions are still existing by parent class Manager
 }
+

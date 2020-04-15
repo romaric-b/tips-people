@@ -1,7 +1,6 @@
 <?php
 
-
-use App\models\entities\Entity;
+namespace models\entities;
 
 class Comment extends Entity //ok
 {

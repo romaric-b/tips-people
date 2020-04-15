@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Controllers;
+namespace controllers;
 
 
 //use Models\CommentManager;

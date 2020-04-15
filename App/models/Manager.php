@@ -1,6 +1,6 @@
 <?php
 
-namespace Models;
+namespace models;
 
 abstract class Manager //Abastract empeche cette class d'être directement instanciée car elle est faite pour être utilisée par ces enfants
 {
@@ -25,12 +25,14 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      */
     public function create($fields, ?string $value = '', array $data = [])
     {
+        var_dump('dans create');
         $query = $this->pdo->prepare("INSERT INTO {$this->table}
                 ($fields) 
                 VALUES ($value)");
 
         $query->execute($data);
     }
+    //TODO sûrement mieux de passer un objet et que pour ce quelconque objet avec chaque get DE PROPRIETE DE l'ENTITE SI PROPRIETE DEFINIE est automatiquement appelée, mais ça implique que NOW soit fait dans l'entité
 
     /**************************************************************************************************
      *

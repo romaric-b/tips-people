@@ -1,7 +1,8 @@
 <?php
 
-use App\models\entities\Entity;
+//use App\models\entities\Entity;
 //require 'App/models/entities/Entity.php';
+namespace models\entities;
 
 class Post extends Entity //ok
 {

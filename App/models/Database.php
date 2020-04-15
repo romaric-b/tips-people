@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Models;
+namespace models;
 
 //A SAVOIR : Avoir la database à la racine n'est pas con non plus pour avoir la main rapidement dessus et laisser la partie
 //dynamique ensemble dans l'APP

@@ -1,16 +1,27 @@
 <?php
 
-use App\controllers\PostController;
-use App\models\entities\User;
-use App\models\entities\Entity;
+//Test entitées ok
+//Test des managers
 
-require 'vendor/autoload.php';
-require 'App/models/entities/User.php';
-require 'App/models/entities/Comment.php';
-require 'App/models/entities/Post.php';
+
+//require 'App/models/entities/Comment.php';
+
+require_once('App/autoload.php');
 //\Application::process();
 
-$comment = new Comment([
+/* $comment = new \models\entities\Comment([
+    'c_id' => '1',
+    'c_post_fk' => '5',
+    'c_author_fk' => '8',
+    'c_reporting' => 'Non signalé',
+    'c_status' => 'Non lu',
+    'c_datetime' => '05/04/2020',
+    'c_title' => 'Titre commentaire',
+    'c_content' => 'Contenu de mon commentaire, jeeej.',
+    'c_vote' => '20'
+]); */
+//var_dump($comment);
+$comment = new models\entities\Comment([
     'c_id' => '1',
     'c_post_fk' => '5',
     'c_author_fk' => '8',
@@ -23,7 +34,7 @@ $comment = new Comment([
 ]);
 var_dump($comment);
 
-$post = new Post([
+$post = new models\entities\Post([
     'p_id' => '1',
     'p_author_fk' => '5',
     'p_title' => 'Titre com',
@@ -38,7 +49,7 @@ $post = new Post([
 
 var_dump($post);
 
-$user = new User([
+$user = new models\entities\User([
     'u_id' => '5',
     'u_nickname' => 'Kevin82',
     'u_datetime' => '20/02/2020',
@@ -55,4 +66,9 @@ var_dump($user);
 //var_dump($comment->c_status);
 
 //TODO Test du manager à faire avec adaptations pour les variables
+
+/* $userManager = new UserManager();
+$userManager->create('u_nickname, u_datetime, u_email, u_password, u_role, u_grade'); */
+
 //TODO controlers + interface ou class static de contrôles d'attributs
+

@@ -1,8 +1,10 @@
 <?php
 
-namespace Models;
+namespace models;
 
-class UserManager
+use Models\Manager;
+
+class UserManager extends Manager
 {
     //Define properties declared in Manager pour my Post Manager
     protected $table = "comment";

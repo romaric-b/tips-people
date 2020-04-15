@@ -1,7 +1,7 @@
 <?php
 
-//namespace Entities;
-namespace App\models\entities;
+namespace models\entities;
+//namespace App\models\entities;
 
 abstract class Entity //testé ok
 {
