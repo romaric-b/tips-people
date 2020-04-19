@@ -5,11 +5,15 @@ namespace models;
 abstract class Manager //Abastract empeche cette class d'être directement instanciée car elle est faite pour être utilisée par ces enfants
 {
     protected $pdo;
-    protected $table; //table est définie dans les classes enfantes, et protected permet de relier l'information entre les 2
+	protected $table; //table est définie dans les classes enfantes, et protected permet de relier l'information entre les 2
+	//Pour create et update il faudra les colonnes sql et les values
+	protected $sqlFields;
+	protected $values;
+	protected $set;
 
     public function __construct()
     {
-        $this->pdo = \Database::getPDO(); //On défini dans un autre fichier le login, mdp base de pdo afin de laisser ce fichier réutilisable
+        $this->pdo = Database::getPDO(); //On défini dans un autre fichier le login, mdp base de pdo afin de laisser ce fichier réutilisable
     }
 
     /**************************************************************************************************
@@ -19,18 +23,28 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      *************************************************************************************************/
 
     /**
-     * @param $fields sql
+     * @param $sqlFields sql
      * @param string|null $value values sql (exemple : NOW(), :title)
      * @param array $data array key -> value
      */
-    public function create($fields, ?string $value = '', array $data = [])
+    public function create(object $entity)
     {
-        var_dump('dans create');
         $query = $this->pdo->prepare("INSERT INTO {$this->table}
-                ($fields) 
-                VALUES ($value)");
+                ({$this->sqlFields}) 
+				VALUES ({$this->values})");
 
-        $query->execute($data);
+			$arrayFields = explode(", ", $this->sqlFields);
+		
+			$datas = [];
+
+			foreach($arrayFields as $sqlField)
+			{
+				$datas[$sqlField] = $entity->__get($sqlField);
+			}
+			
+			var_dump($datas);
+
+        $query->execute($datas);
     }
     //TODO sûrement mieux de passer un objet et que pour ce quelconque objet avec chaque get DE PROPRIETE DE l'ENTITE SI PROPRIETE DEFINIE est automatiquement appelée, mais ça implique que NOW soit fait dans l'entité
 
@@ -81,16 +95,25 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      *
      *************************************************************************************************/
 
-    public function update(?array $set = [], ?string $where = "", ?array $data)
+    public function update(?string $id = "", object $entity)
     {
         //TODO les clé du set seront les mêmes que celle du execute donc 1 entrée retournera 2 résultats dont l'un en dessous pour le set et l'autre pour l'execute
         //TODO dans le contrôleur ou ici il faudra utiliser une méthode transformant un array en string
 
         $query = $this->pdo->prepare(
             "UPDATE {$this->table}
-             set . $set . WHERE $where");
+			 set {$this->set} WHERE $id");
+			 
+			$arrayFields = explode(", ", $this->sqlFields);
+		
+			$datas = [];
 
-        $query->execute($data);
+			foreach($arrayFields as $sqlField)
+			{
+				$datas[$sqlField] = $entity->__get($sqlField);
+			}
+
+		$query->execute($datas);
 
         return $query->execute();
     }
