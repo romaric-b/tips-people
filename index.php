@@ -45,7 +45,8 @@ $date = new DateTime();
 $dateFr = $date->format('d-m-y H:i');
 
 //Test POST
-/* $post = new models\entities\Post([
+$post = new models\entities\Post([
+	'p_author_fk' => '1',
     'p_title' => 'Titre com',
     'p_extract' => 'extrait',
 	'p_content' => 'contenu jeeeej',
@@ -55,13 +56,14 @@ $dateFr = $date->format('d-m-y H:i');
 ]);
 $post->p_datetime = $dateFr;
 $post->p_vote = 0;
+//$post->p_author_fk = 1;
 var_dump($post);
 //TODO Test du manager à faire avec adaptations pour les variables
 $postManager = new PostManager();
-$postManager->create($post); */
+$postManager->create($post);
 
 //Test USER
-$user = new models\entities\User([
+/* $user = new models\entities\User([
 	'u_id' => '1',
     'u_nickname' => 'NewKevin82',
     'u_email' => 'keke@gmail.com',
@@ -77,7 +79,7 @@ $userManager = new UserManager();
 $id = $user->u_id;
 var_dump($id);
 
-$userManager->update($id, $user);
+$userManager->update($id, $user); */
 //var_dump($comment->c_status);
 //echo date_format($date, 'Y-m-d');
 

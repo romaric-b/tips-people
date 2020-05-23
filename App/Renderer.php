@@ -4,6 +4,7 @@
 class Renderer //faire du rendu
 {
 
+	//https://www.youtube.com/watch?v=JfZmAszMI80
     /**
      * Display an HTML template by injecting $variables
      *

@@ -7,6 +7,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
     protected $pdo;
 	protected $table; //table est définie dans les classes enfantes, et protected permet de relier l'information entre les 2
 	//Pour create et update il faudra les colonnes sql et les values
+	protected $tableToJoin;
 	protected $sqlFields;
 	protected $values;
 	protected $set;
@@ -59,7 +60,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      * @param int $id
      * @return mixed
      */
-    public function find(int $id)
+    public function find(int $id) //TODO : sûrement besoin de fetchObject()  vérifier aussi close req->cursor()
     {
         $query = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = :id");
         //Requete préparées sécurité ?
@@ -72,7 +73,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      * @param string|null $order
      * @return array
      */
-    public function findAll(?string $order = ""): array
+    public function findAll(?string $order = ""): array //TODO : sûrement besoin de fetchObject() vérifier aussi close req->cursor()
     {
         $sql = "SELECT * FROM {$this->table}";
         //Requete préparées sécurité ?
@@ -87,7 +88,45 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
         $items = $results->fetchAll();
 
         return $items;
-    }
+	}
+	
+
+	//For One inner join
+	public function findWithAnOther()
+	{
+		//A conserver si toutefois j'étais sur la bonne piste :
+		/* $query = $this->pdo->prepare(
+			"SELECT * FROM {$this->table}
+			INNER JOIN {$this->table2} ON {$this->fk1_table1} = {$this->fk_table2}
+			INNER JOIN {$this->table3} ON {$this->"); */
+
+		
+
+
+		//VERSION P4 Pour m'aider
+
+		/* $req = $this->dbConnect()->prepare('SELECT comment_id, comment_content, comment_status, user_nickname AS author, comment_post_id,
+        DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin\') AS comment_date_fr FROM blog_comments 
+        INNER JOIN blog_user ON comment_user_id = user_id
+        INNER JOIN blog_posts ON comment_post_id = post_id
+        WHERE comment_post_id = ? ORDER BY comment_date DESC'); */
+
+        $comments = [];
+        $req->execute(array($postId));
+        //PDO runs the lines as long as there are results
+        while ($comment = $req->fetchObject('\App\model\entities\Comment'))
+        {
+            //Save result in an array
+            $comments[] = $comment;
+        }
+        return $comments;
+	}
+
+	//For few inner join
+	public function findWithOthers()
+	{
+
+	}
 
     /**************************************************************************************************
      *

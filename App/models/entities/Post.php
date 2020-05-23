@@ -30,6 +30,11 @@ class Post extends Entity //ok
     public $p_vote;
     public $p_status;
     public $p_reporting;
-    public $p_category;
+	public $p_category;
+	
+	/* public function getAuthor()
+	{
+		return $this->
+	} */
 
 }
