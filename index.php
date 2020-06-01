@@ -6,6 +6,8 @@
 
 //require 'App/models/entities/Comment.php';
 
+use models\CommentManager;
+use models\entities\Comment;
 use models\PostManager;
 use models\UserManager;
 
@@ -41,11 +43,11 @@ $now = setlocale(LC_TIME, ['fr', 'fra', 'fr_FR']); */
 
 //DATE pour n'importe quelle entité
 
-$date = new DateTime();
-$dateFr = $date->format('d-m-y H:i');
+/* $date = new DateTime();
+$dateFr = $date->format('d-m-y H:i'); */
 
 //Test POST
-$post = new models\entities\Post([
+/* $post = new models\entities\Post([
 	'p_author_fk' => '1',
     'p_title' => 'Titre com',
     'p_extract' => 'extrait',
@@ -53,14 +55,32 @@ $post = new models\entities\Post([
     'p_status' => 'Brouillon',
     'p_reporting' => 'Signalé',
     'p_category' => 'Présentation'
-]);
-$post->p_datetime = $dateFr;
-$post->p_vote = 0;
+]); */
+/* $post->p_datetime = $dateFr;
+$post->p_vote = 0; */
 //$post->p_author_fk = 1;
-var_dump($post);
+/* var_dump($post); */
 //TODO Test du manager à faire avec adaptations pour les variables
-$postManager = new PostManager();
-$postManager->create($post);
+/* $postManager = new PostManager();
+$postManager->create($post); */
+
+/* $comment = new models\entities\Comment([
+    'c_post_fk' => '2',
+    'c_author_fk' => '7',
+    'c_reporting' => 'Non signalé',
+    'c_status' => 'Non lu',
+    'c_title' => 'Titre commentaire',
+    'c_content' => 'Contenu de mon commentaire, jeeej.'
+]); 
+
+$comment->c_datetime = $dateFr;
+$comment->c_vote = 2; */
+//$commentManager = new CommentManager();
+/* $commentManager->create($comment); */
+
+
+/* $comments = $commentManager->findWithOthers();
+var_dump($comments); */
 
 //Test USER
 /* $user = new models\entities\User([

@@ -15,8 +15,10 @@ class Comment extends Entity //ok
      * @var $c_content string text content of comment
      * @var $c_vote int number of votes for this comment
      */
-    public $c_id;
-    public $c_post_fk; //foreign key
+	public $c_id;
+	public $c_post_title;
+	public $c_post_fk; //foreign key
+	public $c_author_name;
     public $c_author_fk; //foreign key
     public $c_reporting;
     public $c_status;

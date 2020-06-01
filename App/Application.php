@@ -21,7 +21,7 @@ class Application
             $task = $_GET['task'];
         }
 
-        $controllerName = "\Controllers\'" . $controllerName;
+        $controllerName = "\controllers\'" . $controllerName;
         // lui il échappe bizarrement //$controllerName = "\Controllers\\" . $controllerName;
 
         $controller = new $controllerName(); //Equivaut à new PostController()
