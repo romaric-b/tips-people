@@ -11,8 +11,14 @@ use models\entities\Comment;
 use models\PostManager;
 use models\UserManager;
 
+//use Application;
+
+////////////////////////////////////////////////////////
+//A garder
 require_once('App/autoload.php');
-//\Application::process();
+\Application::process();
+////////////////////////////////////////////////////////
+
 
 //var_dump($comment);
 /* $comment = new models\entities\Comment([

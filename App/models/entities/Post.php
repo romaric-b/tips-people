@@ -22,7 +22,8 @@ class Post extends Entity //ok
      * @var $p_category string  enum('Présentation','Analyse Fondamentale','Stratégie d''investissement','Ressources, lexique, tutoriels','Trading','Divers')
      */
     public $p_id;
-    public $p_author_fk;
+	public $p_author_fk;
+	public $p_author_name;
     public $p_title;
     public $p_extract;
     public $p_content;

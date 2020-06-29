@@ -14,6 +14,8 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 	protected $values;
 	protected $set;
 
+	protected $id;
+
     public function __construct()
     {
         $this->pdo = Database::getPDO(); //On défini dans un autre fichier le login, mdp base de pdo afin de laisser ce fichier réutilisable
@@ -64,9 +66,12 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      */
     public function find(int $id) //TODO : sûrement besoin de fetchObject()  vérifier aussi close req->cursor()
     {
-        $query = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = :id");
-        //Requete préparées sécurité ?
-        $query->execute(['id => $id']);
+		var_dump($id);
+        $query = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE {$this->id} = :{$this->id}");
+		//Requete préparées sécurité ?
+		/* var_dump($this->id); */
+		var_dump($this->id);
+        $query->execute(array($this->id => $id));
         $item = $query->fetch();
         return $item;
     }
@@ -76,7 +81,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      * @return array
      */
     public function findAll(?string $order = ""): array //TODO : sûrement besoin de fetchObject() vérifier aussi close req->cursor()
-    {
+    {		
         $sql = "SELECT * FROM {$this->table}";
         //Requete préparées sécurité ?
         if($order)
@@ -87,7 +92,17 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
         $results = $this->pdo->query($sql);
 
         //Je fouille le résultat pour en extraire les données réelles
-        $items = $results->fetchAll();
+		//$items = $results->fetchAll();
+
+		//Je mets un majuscule à la table j'ai le nom d'entité
+		$entity = ucfirst($this->table);
+
+		//$items = $results->fetchObject('models\entities\\' . $entity);		
+		while ($item = $results->fetchObject('models\entities\\' . $entity))
+		{
+			//Save result in an array
+			$items[] = $item;
+		}
 
         return $items;
 	}

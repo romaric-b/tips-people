@@ -14,12 +14,14 @@ class Renderer //faire du rendu
      */
     public static function render(string $path, array $variables = []): void
     {
+		//var_dump($variables);
         extract($variables);
 
         ob_start();
-        require('templates/' . $path . 'html.php');
+		require('views/templates/' . $path . '.html.php');
+		//var_dump($pageContent);
         $pageContent = ob_get_clean();
 
-        require('templates/layout.html.php');
+        require('views/templates/layout.html.php');
     }
 }

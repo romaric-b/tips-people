@@ -14,5 +14,7 @@ class Http
     {
         header("Location : $url");
         exit();
-    }
+	}
+	
+	//Redirections, session, paramètres en get ou post
 }
