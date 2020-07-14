@@ -1,0 +1,14 @@
+.bord-solid
+{
+	border: solid 1px black;
+}
+
+.flex
+{
+	display: flex;
+}
+
+.f-row
+{
+	flex-direction: row;
+}

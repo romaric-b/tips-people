@@ -36,7 +36,9 @@ class Post extends Controller
     {
 		//Montrer un article
 		$post = $this->model->findWithHisAuthor($_GET['id']);
-		$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']); //TODO refactoriser la jointure dans le parent
+		$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
+		//TODO refactoriser la jointure dans le parent
+		$_SESSION['p_id'] = $post->p_id;
 
 		//var_dump($post);
 
@@ -51,7 +53,29 @@ class Post extends Controller
 		$cssFile = "/public/css/post/index.css";
 		
 		//Utiliser compact comme un array
-        \Renderer::render('post/post', compact('pageTitle', 'description', 'post', 'comments', 'description', 'author', 'cssFile'));
+        \Renderer::render('post/post', compact('pageTitle', 'description', 'post', 'comments', 'author', 'cssFile'));
+	}
+
+	public function dashboard()
+	{
+		//Montrer un article
+		$posts = $this->model->findAllWithTheirAuthor("p_id = ?", "");
+		//TODO refactoriser la jointure dans le parent
+
+		//var_dump($post);
+
+		//var_dump($item);
+		$pageTitle = "Tableau de bord des articles"; //head page (SEO)
+		//var_dump($pageTitle);
+		
+		$description = "Administration et modération des articles"; //head page (SEO)
+
+		$author = "Invest People";
+
+		$cssFile = "/public/css/dashboard.css";
+		
+		//Utiliser compact comme un array
+        \Renderer::render('post/dashboard', compact('pageTitle', 'description', 'posts', 'author', 'cssFile'));
 	}
 
     public function delete()

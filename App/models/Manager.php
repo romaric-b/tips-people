@@ -97,7 +97,9 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 		//Je mets un majuscule à la table j'ai le nom d'entité
 		$entity = ucfirst($this->table);
 
-		//$items = $results->fetchObject('models\entities\\' . $entity);		
+		//$items = $results->fetchObject('models\entities\\' . $entity);	
+
+		//TODO vérifier si les entités fonctionnent autrement s'inspirer des requêtes à FETCH_OBJECT
 		while ($item = $results->fetchObject('models\entities\\' . $entity))
 		{
 			//Save result in an array

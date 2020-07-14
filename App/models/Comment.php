@@ -22,6 +22,8 @@ class Comment extends Manager
 	protected $idFiedTable1 = "p_id";
 	protected $idFiedTable2 = "u_id";
 
+	//protected $id = 'c_id';
+
 	
 	//Global functions are still existing by parent class Manager	
 
@@ -29,12 +31,12 @@ class Comment extends Manager
 	//Function of this class specialy
 	public function findWithHisAuthor(?int $id, ?string $where = "", ?string $order = "")
 	{
+		var_dump($id);
 		$sql = "SELECT
 		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, c_datetime, c_vote, c_status, c_reporting, c_post_fk
 		FROM comment
 		INNER JOIN user ON c_author_fk = u_id
 		";
-		var_dump($id);
 
 		//Conditions in request if parameter choosed
 		if ($where)
@@ -53,7 +55,7 @@ class Comment extends Manager
 		}
 
 		//var_dump($sql);
-		$query = $this->pdo->query($sql);
+		$query = $this->pdo->prepare($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
 
 		//var_dump($query);
@@ -70,11 +72,53 @@ class Comment extends Manager
 		} */
 		$items = $query->fetchAll();
 
+		//var_dump($items); //vide
+		//$object = new \models\entities\PostView($items);
+		//var_dump($object);
+		var_dump($items);
 
-		var_dump($items); //vide
+		return $items;
+	}	
+
+	public function findAllWithTheirAuthor(?string $order = "")
+	{
+		var_dump($order);
+		$sql = "SELECT
+		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, c_datetime, c_vote, c_status, c_reporting, c_post_fk
+		FROM comment
+		INNER JOIN user ON c_author_fk = u_id
+		";
+
+		//Conditions in request if parameter choosed
+		
+		/* if ($order)
+		{
+			$sql .= " ORDER BY " . $order; 
+		} */
+
+		//var_dump($sql);
+		$query = $this->pdo->query($sql);
+		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
+
+		//var_dump($query);
+		//$items = [];
+		/* $object = new \models\entities\PostView(); */
+	
+        $query->execute();
+		//test :
+		/* while ($data = $query->fetchObject('models\entities\Comment')) */
+		//while ($item = $query->fetchObject('models\entities\PostView'))
+		/* while ($item = $query->fetchAll())
+		{
+			$items[] = $item;
+		} */
+		$items = $query->fetchAll();
+
+		//var_dump($item);
 		//$object = new \models\entities\PostView($items);
 		//var_dump($object);
 
 		return $items;
 	}	
+
 }

@@ -72,4 +72,50 @@ class Post extends Manager //A noter au moment du test dans index le p_author_fk
 
 		return $item;
 	}	
+
+	public function findAllWithTheirAuthor(?string $order = "")
+	{
+		$sql = "SELECT
+		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, p_datetime, p_vote, p_status, p_reporting, p_category
+		FROM post
+		INNER JOIN user ON p_author_fk = u_id
+		";
+
+		//Conditions in request if parameter choosed
+		/* 
+		if ($order)
+		{
+			$sql .= " ORDER BY " . $order; 
+		}
+		elseif (empty($order))
+		{
+			$sql .= " ORDER BY p_id";
+		} */
+
+
+
+		var_dump($sql);
+		$query = $this->pdo->query($sql);
+		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
+
+		//var_dump($query);
+		//$items = [];
+		/* $object = new \models\entities\PostView(); */
+	
+        $query->execute();
+		//test :
+		/* while ($data = $query->fetchObject('models\entities\Comment')) */
+		//while ($item = $query->fetchObject('models\entities\PostView'))
+		/* while ($item = $query->fetchAll())
+		{
+			$items[] = $item;
+		} */
+		$items = $query->fetchAll();
+
+		//var_dump($item);
+		//$object = new \models\entities\PostView($items);
+		//var_dump($object);
+
+		return $items;
+	}	
 }

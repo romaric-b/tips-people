@@ -15,6 +15,23 @@ class Http
         header("Location : $url");
         exit();
 	}
+
+	public static function addSession($id)
+	{
+
+	}
+
+	/**
+	 * Tableau de données utilisateur à détruire
+	 * exemple une déconnexion, j'oublie l'id de l'internaute
+	 *
+	 * @param array $data
+	 * @return void
+	 */
+	public static function killSession(array $data)
+	{
+
+	}
 	
 	//Redirections, session, paramètres en get ou post
 }

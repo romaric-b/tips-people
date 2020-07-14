@@ -9,13 +9,13 @@ class Application
     public static function process() 
     {
         $controllerName = "Post";
-        $task = "index";
+        $task = "dashboard";
 
         if(!empty($_GET['controller']))
         {
 			$controllerName = ucfirst($_GET['controller']);			
-        }
-
+		}
+		
         if(!empty($_GET['task']))
         {
             $task = $_GET['task'];
