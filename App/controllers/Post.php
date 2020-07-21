@@ -12,6 +12,38 @@ class Post extends Controller
 
 	protected $modelJoindedName = '\models\Comment';
 	
+	public function insert()
+    {
+		//Pour le test 
+		//TODO utiliser un service de session
+		$_SESSION['logedUser'] = 2;
+
+		//TODO créer un service 
+		$date = new \DateTime();
+		
+		$dateStr = $date->format('Y-m-d H:i:s');
+		//$dateStr = $date->format('d-m-y H:i'); 
+		
+		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
+		$post = new \models\entities\Post(
+			[
+				'p_title' => $_POST['p_title'],
+				'p_extract' => $_POST['p_extract'],
+				'p_content' => $_POST['p_content'],
+				'p_vote' => '0',
+				'p_author_fk' => $_SESSION['logedUser'],
+				'p_datetime' => $dateStr,
+				'p_reporting' => 'Non signalé',
+				'p_category' => 'Présentation',
+				'p_status' => 'Non lu'
+			]
+		);
+		
+		$this->model->create($post);
+		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	
+		   //TODO ajax sur cette url 
+		\Http::redirect("index.php?controller=post&task=index");
+	}
 
     public function index()
     {

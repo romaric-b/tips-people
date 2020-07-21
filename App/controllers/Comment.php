@@ -3,14 +3,16 @@
 
 namespace controllers;
 
+
 //use Models\Comment;
 
 class Comment extends Controller
 {
     protected $model; //accessible dans la class même et la parente
     protected $modelName = '\models\Comment'; //= new CommentManager();
-
 	protected $modelJoindedName = '\models\User';
+	/* protected $entity;
+	protected $entityName = '\models\entities\Comment'; finalement non car constructeur intégré aux ()*/
 
 
 	public function showViewInsert()
@@ -20,23 +22,34 @@ class Comment extends Controller
 
     public function insert()
     {
-		//Pour le test
-		$_SESSION['c_author_fk'] = 2;
+		//Pour le test 
+		//TODO utiliser un service de session
+		$_SESSION['logedUser'] = 2;
 
-
+		//TODO créer un service 
+		$date = new \DateTime();
+		
+		$dateStr = $date->format('Y-m-d H:i:s');
+		//$dateStr = $date->format('d-m-y H:i'); 
+		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le commentaire je l'ai, idem pour l'utilisateur qui commente
-		$comment = new Comment(
+		$comment = new \models\entities\Comment(
 			[
+				'c_title' => $_POST['c_title'],
 				'c_content' => $_POST['c_content'],
-				'c_post_fk'
+				'c_vote' => '0',
+				'c_post_fk' => $_GET['id'], //Sera plutôt dans la tambouille Http - App
+				'c_author_fk' => $_SESSION['logedUser'],
+				'c_datetime' => $dateStr,
+				'c_reporting' => 'Non signalé',
+				'c_status' => 'Non lu'
 			]
 		);
-
-		$this->model->create();
-
-	   /*  \Http::redirect("index.php?controller=post&task=show&id=" . $p_id);  *///TODO a adapter
-	   
-	
+		
+		$this->model->create($comment);
+		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	
+		   //TODO ajax
+		//\Http::redirect("index.php?controller=post&task=index");
 	}
 	
 	public function dashboard()

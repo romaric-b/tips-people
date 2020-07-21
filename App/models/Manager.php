@@ -44,7 +44,8 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 
 			foreach($arrayFields as $sqlField)
 			{
-				$datas[$sqlField] = $entity->__get($sqlField);
+				//$datas[$sqlField] = $entity->__get($sqlField);
+				$datas[$sqlField] = $entity->$sqlField;
 			}
 			
 			var_dump($datas);
@@ -69,9 +70,24 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 		var_dump($id);
         $query = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE {$this->id} = :{$this->id}");
 		//Requete préparées sécurité ?
+		
 		/* var_dump($this->id); */
 		var_dump($this->id);
         $query->execute(array($this->id => $id));
+        $item = $query->fetch();
+        return $item;
+	}
+	
+	public function findWhere(?string $col,?string $value) //TODO : sûrement besoin de fetchObject()  vérifier aussi close req->cursor()
+    {
+        $query = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE "  . $col . " = :" . $col);
+		//Requete préparées sécurité ?
+		
+		//$query .= " where " . $col . " = " . $value;
+
+		var_dump($query);		
+		
+        $query->execute(array($col => $value));
         $item = $query->fetch();
         return $item;
     }
@@ -99,14 +115,21 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 
 		//$items = $results->fetchObject('models\entities\\' . $entity);	
 
+		$items = array();
+
 		//TODO vérifier si les entités fonctionnent autrement s'inspirer des requêtes à FETCH_OBJECT
 		while ($item = $results->fetchObject('models\entities\\' . $entity))
 		{
 			//Save result in an array
 			$items[] = $item;
 		}
+		var_dump($items);
 
-        return $items;
+		//Pour le cas où j'ai 0 item pour éviter une erreur
+		/* if($items != NULL)
+		{ */
+			return $items;
+		/* } */
 	}
 	
 
@@ -131,7 +154,8 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 
 			foreach($arrayFields as $sqlField)
 			{
-				$datas[$sqlField] = $entity->__get($sqlField);
+				$datas[$sqlField] = $entity->__get($sqlField); //peut-être sans le _get()
+				
 			}
 
 		$query->execute($datas);

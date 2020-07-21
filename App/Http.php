@@ -12,8 +12,9 @@ class Http
      */
     public static function redirect(string $url):void
     {
-        header("Location : $url");
-        exit();
+		var_dump('dans http redirect');
+        header("Location: " . $url);
+        //exit();
 	}
 
 	public static function addSession($id)
