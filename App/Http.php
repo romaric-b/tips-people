@@ -17,10 +17,19 @@ class Http
         //exit();
 	}
 
-	public static function addSession($id)
+	/* public static function addSession(?string $attributs = '', ?object $user) //TODO a débuguer
 	{
+		$attributsArray = explode(", ", $attributs);
+		var_dump($attributsArray);
+				
+		$_SESSION = [];
 
-	}
+		foreach($attributsArray as $attribut)
+		{
+			$_SESSION[$attribut] = $user[$attribut];
+		}
+		var_dump($_SESSION);
+	} */
 
 	/**
 	 * Tableau de données utilisateur à détruire
@@ -31,7 +40,8 @@ class Http
 	 */
 	public static function killSession(array $data)
 	{
-
+		$_SESSION = array();
+        session_destroy();
 	}
 	
 	//Redirections, session, paramètres en get ou post

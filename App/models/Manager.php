@@ -155,7 +155,6 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 			foreach($arrayFields as $sqlField)
 			{
 				$datas[$sqlField] = $entity->__get($sqlField); //peut-être sans le _get()
-				
 			}
 
 		$query->execute($datas);

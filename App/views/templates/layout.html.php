@@ -107,6 +107,9 @@
 						</label>
 						<label class="d-flex flex-column" for="regist--password">Tapez votre mot de passe comportant 1 à 30 caractères * :
 							<input type="password" name="u_password" placeholder="Mot de passe" id="regist--password" required/>
+						</label>
+						<label class="d-flex flex-column" for="regist--password">Retapez votre mot de passe * :
+							<input type="password" name="u_password2" placeholder="Mot de passe" id="regist--password" required/>
 						</label>						
 					</p>
 					<p>
