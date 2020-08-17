@@ -34,4 +34,3 @@
 <?php elseif($posts == NULL): ?>
 	<p class="font-italic">Aucun article à afficher</p>
 <?php endif; ?>
-

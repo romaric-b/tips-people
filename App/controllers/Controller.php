@@ -20,6 +20,72 @@ abstract class Controller
     {
 		$this->model = new $this->modelName();
 		$this->modelJoinded = new $this->modelJoindedName();
-		/* $this->entity = new $this->entityName(); finalement non car constructeur intégré aux ()*/
+	}
+
+	/**
+	 * Create a comment or a post
+	 *
+	 * @return void
+	 */
+	public function insert()
+	{
+		//TODO a virer à la fin si inutile
+	}
+
+	/**
+	 * Read all items
+	 *
+	 * @return void
+	 */
+	public function dashboard()
+	{
+		$cssFile = "/public/css/dashboard.css";
+
+		if($this->modelName === '\models\User')
+		{
+			$items = $this->model->findAll();
+			$pageTitle = "Gestion des membres";
+			$description = "Administration et modération des membres";
+			$path = 'user/dashboard';
+		}
+		elseif($this->modelName === '\models\Post')
+		{
+			$items = $this->model->findAllWithTheirAuthor('p_id = ?', "");
+			
+			$pageTitle = "Gestion des articles";
+			$description = "Administration et modération des articles";
+			$path = 'post/dashboard';
+		}
+		elseif($this->modelName === '\models\Comment')
+		{
+			$items = $this->model->findAllWithTheirAuthor('c_id = ?', "");
+
+			$pageTitle = "Gestion des commentaires";
+			$description = "Administration et modération des commentaires";
+			$path = 'comment/dashboard';
+		}
+
+		\Renderer::render($path, compact('pageTitle', 'description', 'cssFile', 'items'));
+	}
+	
+	/**
+	 * Delete an item of platform
+	 *
+	 * @return void
+	 */
+	public function delete()
+    {
+		if($this->modelName === '\models\User')
+		{
+			$this->model->delete('u_id', $_GET['id']);
+		}
+		elseif($this->modelName === '\models\Post')
+		{
+			$this->model->delete('p_id', $_GET['id']);
+		}
+		elseif($this->modelName === '\models\Comment')
+		{
+			$this->model->delete('c_id', $_GET['id']);
+		}
     }
 }

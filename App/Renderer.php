@@ -17,7 +17,8 @@ class Renderer //faire du rendu
 		//var_dump($variables);
         extract($variables);
 
-        ob_start();
+		ob_start();
+
 		require('views/templates/' . $path . '.html.php');
 		//var_dump($pageContent);
         $pageContent = ob_get_clean();

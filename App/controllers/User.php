@@ -19,11 +19,9 @@ class User extends Controller
 
 	public function insert()
     {
-				
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 
 		//1 : sécurisation des entrées
-
 		$nickname =  \Security::controlInput($_POST['u_nickname'], 30, 'text');
 		$email = \Security::controlInput($_POST['u_email'], 50, 'email');
 
@@ -31,8 +29,6 @@ class User extends Controller
 		$password2 = \Security::controlInput($_POST['u_password2'], 255, 'password');
 
 		$password = \Security::controlMatchingPassword($password1, $password2);
-
-		
 		
 		if($nickname == null)
 		{
@@ -75,7 +71,7 @@ class User extends Controller
 						'u_nickname' => $nickname,
 						'u_email' => $email,
 						'u_password' => $password,
-						'u_datetime' => $dateStr,
+						//'u_datetime' => $dateStr,
 						'u_number_speech' => 0,
 						'u_role' => 'Nouveau Membre'
 					]
@@ -96,30 +92,15 @@ class User extends Controller
 		}
 	}
 
-	public function index()
-	{
-		
-        //montrer la liste
-
-        //récupéré les articles
-        $users = $this->model->findAll("created_at DESC"); //TODO faudra réadapter suite à protected $modelName...
-
-        //afficher les articles
-        $pageTitle = "Membres";
-
-        \Renderer::render('users/index', compact('pageTitle', 'users'));
-	}
-
-	public function show()
+	//PAS d"utilité immédiate à ne voir qu'un seul individu
+	/* public function show()
     {
         //Montrer un article
-
-	}
+	} */
 	
 	public function login()
 	{
 		//1 : sécurisation des entrées
-
 		$nickname =  \Security::controlInput($_POST['u_nickname'], 30, 'text');
 		$password = \Security::controlInput($_POST['u_password'], 255, 'password');
 
@@ -128,18 +109,13 @@ class User extends Controller
 			'u_nickname' => $nickname,
 			'u_password' => $password
 		]);
-
-		var_dump($loggingUser->u_password);
-
 		//$password = \Security::controlMatchingPassword($password1, $password2);
 
 		//2 : vérification par pseudo si un utilisateur correspond
 		$matchedUser = $this->model->findWhere("u_nickname", $nickname);
-		var_dump($matchedUser);
 
 		if(empty($matchedUser))
 		{
-			var_dump('mauvais mdp ou erreur pseudo');
 			$pageTitle = "Connexion impossible"; //pratique d'accessibilité
 			$message = 'Erreur de pseudo ou de mot de passe';
 			$description = "Connexion impossible";
@@ -150,8 +126,6 @@ class User extends Controller
 		}
 		elseif($nickname != null && $password != null && !empty($matchedUser))
 		{
-			var_dump('condition connexion ok');
-
 			if(password_verify($loggingUser->u_password, $matchedUser['u_password']));
 			{
 				//$hashPass = password_hash($loggingUser->u_password, PASSWORD_DEFAULT);
@@ -160,6 +134,7 @@ class User extends Controller
 				//\Http::addSession('u_nickname, u_number_speech, u_role', $matchedUser);
 
 				$_SESSION['u_nickname'] = $matchedUser['u_nickname'];
+				var_dump($_SESSION['u_nickname']);
 				$_SESSION['u_number_speech'] = $matchedUser['u_number_speech'];
 				$_SESSION['u_role'] = $matchedUser['u_role'];
 
@@ -178,46 +153,10 @@ class User extends Controller
 				\Renderer::render('user/logged', compact('pageTitle', 'description' ,'nickname', 'author', 'cssFile'));
 			}
 		}
-
-		/////////////////////////////////////////////////
-	/* 	$loggingUser = new \models\entities\User(
-			[
-				'u_nickname' => $_POST['u_nickname'],
-				'u_password' => $_POST['u_password']
-			]
-		);
-
-		$loggedNickname = $loggingUser->u_nickname;
-
-		$matchedUser = $this->model->findWhere("u_nickname", $loggedNickname);
-
-
-
-		if($matchedUser === 0)
-		{
-			return print_r('Aucun pseudo correspondant');
-		}
-
-		//TODO pour la vérif penser au mot de passe
-
-		$pageTitle = "Bon retour";
-		
-		$description = "Bienvenu sur Tips People, la communauté francophone d'investisseurs.";
-
-		$author = "Invest People";
-
-		$cssFile = "/public/css/post/index.css";
-
-        \Renderer::render('user/logged', compact('pageTitle', 'description' ,'loggedNickname', 'author', 'cssFile')); */
-
 	}
 
     public function delete()
     {
-        //supprimer un article
-
-        //Ne pas oublier les étapes avant XD
-
-        \Http::redirect('index.php');
+		$this->model->delete('u_id', $_GET['id']);
     }
 }

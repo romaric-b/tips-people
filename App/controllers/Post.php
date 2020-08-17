@@ -17,6 +17,34 @@ class Post extends Controller
 		//Pour le test 
 		//TODO utiliser un service de session
 		$_SESSION['logedUser'] = 2;
+		
+		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
+		$post = new \models\entities\Post(
+			[
+				'p_title' => $_POST['p_title'],
+				'p_extract' => $_POST['p_extract'],
+				'p_content' => $_POST['p_content'],
+				'p_vote' => '0',
+				'p_author_fk' => $_SESSION['logedUser'],
+				'p_datetime' => \Service::dateFr(),
+				'p_reporting' => 'Non signalé',
+				'p_category' => 'Présentation',
+				'p_status' => 'Non lu'
+			]
+		);
+		
+		$this->model->create($post);
+		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	
+		   //TODO ajax 
+		\Http::redirect("index.php?controller=post&task=index");
+	}
+
+	public function update()
+	{
+		//Pour le test 
+		//TODO utiliser un service de session
+		$_SESSION['logedUser'] = 2;
+		$idUser = $_SESSION['logedUser'];
 
 		//TODO créer un service 
 		$date = new \DateTime();
@@ -25,7 +53,7 @@ class Post extends Controller
 		//$dateStr = $date->format('d-m-y H:i'); 
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
-		$post = new \models\entities\Post(
+		$udaptedPost = new \models\entities\Post(
 			[
 				'p_title' => $_POST['p_title'],
 				'p_extract' => $_POST['p_extract'],
@@ -39,7 +67,7 @@ class Post extends Controller
 			]
 		);
 		
-		$this->model->create($post);
+		$this->model->update($idUser, $udaptedPost);
 		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	
 		   //TODO ajax sur cette url 
 		\Http::redirect("index.php?controller=post&task=index");
@@ -51,7 +79,7 @@ class Post extends Controller
 
         //récupéré les articles
 		$posts = $this->model->findAll("p_datetime DESC"); //TODO faudra réadapter suite à protected $modelName...
-		
+
         //afficher les articles
 		$pageTitle = "Articles";
 		
@@ -72,50 +100,23 @@ class Post extends Controller
 		//TODO refactoriser la jointure dans le parent
 		$_SESSION['p_id'] = $post->p_id;
 
-		//var_dump($post);
+		//utilisateur actuellement connecté, pour comparaison utlérieur
+		//$loggedUser = $_SESSION['u_nickname'];
 
 		//var_dump($item);
 		$pageTitle = $post->p_title; //head page (SEO)
-		//var_dump($pageTitle);
+		
 		
 		$description = $post->p_extract; //head page (SEO)
 
 		$author = $post->p_author_name;
 
+		//Enregistré en session l'auteur ça me servira plus tard pour le droit de modification de l'article, même chose pour les commentaires
+		$_SESSION['p_author'] = $post->p_author_name;
+		
 		$cssFile = "/public/css/post/index.css";
 		
 		//Utiliser compact comme un array
         \Renderer::render('post/post', compact('pageTitle', 'description', 'post', 'comments', 'author', 'cssFile'));
 	}
-
-	public function dashboard()
-	{
-		//Montrer un article
-		$posts = $this->model->findAllWithTheirAuthor("p_id = ?", "");
-		//TODO refactoriser la jointure dans le parent
-
-		//var_dump($post);
-
-		//var_dump($item);
-		$pageTitle = "Tableau de bord des articles"; //head page (SEO)
-		//var_dump($pageTitle);
-		
-		$description = "Administration et modération des articles"; //head page (SEO)
-
-		$author = "Invest People";
-
-		$cssFile = "/public/css/dashboard.css";
-		
-		//Utiliser compact comme un array
-        \Renderer::render('post/dashboard', compact('pageTitle', 'description', 'posts', 'author', 'cssFile'));
-	}
-
-    public function delete()
-    {
-        //supprimer un article
-
-        //Ne pas oublier les étapes avant XD
-
-        \Http::redirect('index.php?controller=post&task=');
-    }
 }

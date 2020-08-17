@@ -10,7 +10,8 @@ class Comment extends Manager
     //Define properties declared in Manager pour my Post Manager
 	protected $table = "comment";
 	protected $sqlFields = "c_post_fk, c_author_fk, c_reporting, c_status, c_datetime, c_title, c_content, c_vote";
-	protected $values = ":c_post_fk, :c_author_fk, :c_reporting, :c_status, :c_datetime, :c_title, :c_content, :c_vote";
+	protected $readingFields = "c_post_fk, c_author_fk, c_reporting, c_status, DATE_FORMAT(c_datetime, '%d/%m/%Y à %Hh%imin') AS c_datetime, c_title, c_content, c_vote";
+	protected $values = ":c_post_fk, :c_author_fk, :c_reporting, :c_status, NOW(), :c_title, :c_content, :c_vote";
 	protected $set = "c_reporting = :c_reporting, c_status = :c_status, c_datetime = :c_datetime, c_title = :c_title, c_content = :c_content, c_vote = :c_vote";
 		
 	protected $tableJoined1 = "post"; //Je sais pas s'il faut pas ça dans Manager
@@ -57,32 +58,16 @@ class Comment extends Manager
 		//var_dump($sql);
 		$query = $this->pdo->prepare($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
-
-		//var_dump($query);
-		//$items = [];
-		/* $object = new \models\entities\PostView(); */
-	
+		
         $query->execute(array($id));
-		//test :
-		/* while ($data = $query->fetchObject('models\entities\Comment')) */
-		//while ($item = $query->fetchObject('models\entities\PostView'))
-		/* while ($item = $query->fetchAll())
-		{
-			$items[] = $item;
-		} */
+		
 		$items = $query->fetchAll();
-
-		//var_dump($items); //vide
-		//$object = new \models\entities\PostView($items);
-		//var_dump($object);
-		var_dump($items);
 
 		return $items;
 	}	
 
 	public function findAllWithTheirAuthor(?string $order = "")
 	{
-		var_dump($order);
 		$sql = "SELECT
 		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, c_datetime, c_vote, c_status, c_reporting, c_post_fk
 		FROM comment
@@ -99,26 +84,11 @@ class Comment extends Manager
 		//var_dump($sql);
 		$query = $this->pdo->query($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
-
-		//var_dump($query);
-		//$items = [];
-		/* $object = new \models\entities\PostView(); */
 	
-        $query->execute();
-		//test :
-		/* while ($data = $query->fetchObject('models\entities\Comment')) */
-		//while ($item = $query->fetchObject('models\entities\PostView'))
-		/* while ($item = $query->fetchAll())
-		{
-			$items[] = $item;
-		} */
+		$query->execute();
+		
 		$items = $query->fetchAll();
-
-		//var_dump($item);
-		//$object = new \models\entities\PostView($items);
-		//var_dump($object);
 
 		return $items;
 	}	
-
 }

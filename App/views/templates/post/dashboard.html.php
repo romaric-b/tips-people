@@ -18,7 +18,7 @@
 	</div>
   <div class="pl-tbody">
 
-  	<?php foreach ($posts as $post): ?>
+  	<?php foreach ($items as $post): ?>
     <div class="row">
 			<div class="col"><?= $post->p_id ?></div>
 			<div class="col"><?= $post->p_title ?></div>

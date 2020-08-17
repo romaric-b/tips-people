@@ -8,8 +8,9 @@ class Application
      */
     public static function process() 
     {
+		//Route Par defaut
         $controllerName = "Post";
-        $task = "dashboard";
+        $task = "index";
 
         if(!empty($_GET['controller']))
         {
@@ -24,7 +25,8 @@ class Application
         $controllerName = "\controllers\\" . $controllerName;
         // lui il échappe bizarrement //$controllerName = "\Controllers\\" . $controllerName;
 
-        $controller = new $controllerName(); //Equivaut à new PostController()
+		$controller = new $controllerName(); //Equivaut à new PostController()
+		
 		$controller->$task(); //equivaut à $postController->index()
     }
 }

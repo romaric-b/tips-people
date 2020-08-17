@@ -16,7 +16,7 @@
   </div>
   <div class="pl-tbody">
 
-  <?php foreach ($comments as $comment): ?>
+  <?php foreach ($items as $comment): ?>
     <div class="row">
 		<div class="col"><?= $comment->c_id ?></div>
 		<div class="col">

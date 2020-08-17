@@ -47,11 +47,9 @@ class Security
 		if($password1 !== $password2)
 		{
 			/* $messsage = '<p>Les mots de passe rentrés sont différents.</p>';
-
 			$cssFile = "/public/css/index.css";
-
 			$pageTitle = "Erreur"; */
-
+			
 			//TODO ajax pour les erreurs
 
 			/* \Renderer::render('message/error', compact('pageTitle', 'messsage', 'cssFile')); */

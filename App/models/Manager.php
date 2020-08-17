@@ -10,6 +10,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 	protected $tableToJoin1;
 	protected $tableToJoin2;
 
+	protected $readingFields;
 	protected $sqlFields;
 	protected $values;
 	protected $set;
@@ -68,7 +69,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
     public function find(int $id) //TODO : sûrement besoin de fetchObject()  vérifier aussi close req->cursor()
     {
 		var_dump($id);
-        $query = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE {$this->id} = :{$this->id}");
+        $query = $this->pdo->prepare("SELECT {$this->readingFields} FROM {$this->table} WHERE {$this->id} = :{$this->id}");
 		//Requete préparées sécurité ?
 		
 		/* var_dump($this->id); */
@@ -80,7 +81,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 	
 	public function findWhere(?string $col,?string $value) //TODO : sûrement besoin de fetchObject()  vérifier aussi close req->cursor()
     {
-        $query = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE "  . $col . " = :" . $col);
+        $query = $this->pdo->prepare("SELECT {$this->readingFields} FROM {$this->table} WHERE "  . $col . " = :" . $col);
 		//Requete préparées sécurité ?
 		
 		//$query .= " where " . $col . " = " . $value;
@@ -98,14 +99,15 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      */
     public function findAll(?string $order = ""): array //TODO : sûrement besoin de fetchObject() vérifier aussi close req->cursor()
     {		
-        $sql = "SELECT * FROM {$this->table}";
+        $sql = "SELECT {$this->readingFields} FROM {$this->table}";
         //Requete préparées sécurité ?
         if($order)
         {
             $sql .= " ORDER BY " . $order; //je concatène à la var requête sql  pour rajouter à la fin l'ordre
-        }
+		}
+		var_dump($sql);
 
-        $results = $this->pdo->query($sql);
+		$results = $this->pdo->query($sql);
 
         //Je fouille le résultat pour en extraire les données réelles
 		//$items = $results->fetchAll();
@@ -142,7 +144,9 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
     public function update(?string $id = "", object $entity)
     {
         //TODO les clé du set seront les mêmes que celle du execute donc 1 entrée retournera 2 résultats dont l'un en dessous pour le set et l'autre pour l'execute
-        //TODO dans le contrôleur ou ici il faudra utiliser une méthode transformant un array en string
+		//TODO dans le contrôleur ou ici il faudra utiliser une méthode transformant un array en string
+		var_dump($id);
+		var_dump($entity);
 
         $query = $this->pdo->prepare(
             "UPDATE {$this->table}
@@ -174,9 +178,12 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      * @param int $id
      * @return void TODO à supprimer une fois retenu : void comme type retourné signifie que la valeur retournée est inutile. void dans une liste de paramètre signifie que la fonction n'accepte aucun paramètre. À partir de PHP 7.1 void est accepté comme type de retour d'une fonction
      */
-    public function delete(int $id):void
+    public function delete(?string $column,int $id):void
     {
-        $query = $this->pdo->prepare("DELETE FROM {$this->table} WHERE id = :id");
+		var_dump($id);
+		$query = $this->pdo->prepare("DELETE FROM {$this->table} WHERE $column = :id");
+		
+		var_dump($query);
         //Requete préparées sécurité ?
         $query->execute(['id' => $id]);
     }
