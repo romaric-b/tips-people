@@ -27,10 +27,10 @@ abstract class Controller
 	 *
 	 * @return void
 	 */
-	public function insert()
+	/* public function insert()
 	{
 		//TODO a virer à la fin si inutile
-	}
+	} */
 
 	/**
 	 * Read all items

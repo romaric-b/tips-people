@@ -9,12 +9,12 @@ class Post extends Manager //A noter au moment du test dans index le p_author_fk
     //Define properties declared in Manager pour my Post Manager
 	protected $table = "post";
 	protected $sqlFields = "p_author_fk, p_title, p_extract, p_content, p_datetime, p_vote, p_status, p_reporting, p_category";
-	protected $readingFields = "p_author_fk, p_title, p_extract, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin') AS p_datetime, p_vote, p_status, p_reporting, p_category";
+	protected $readingFields = "p_id, p_author_fk, p_title, p_extract, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin') AS p_datetime, p_vote, p_status, p_reporting, p_category";
 	protected $values = ":p_author_fk, :p_title, :p_extract, :p_content, NOW(), :p_vote, :p_status, :p_reporting, :p_category";	
 	protected $set = "p_title = :p_title, p_extract = :p_extract, p_content = :p_content, p_datetime = NOW(), p_vote = :p_vote, p_status = :p_status, p_reporting = :p_reporting, p_category = :p_category";
 
 	//Pour les jointures
-	protected $id = 'p_id';
+	//protected $id = 'p_id';
 
 	protected $tableJoined1 = "comment"; //Je sais pas s'il faut pas ça dans Manager
 	protected $tableJoined2 = "user";
@@ -28,7 +28,7 @@ class Post extends Manager //A noter au moment du test dans index le p_author_fk
 	public function findWithHisAuthor(?int $id, ?string $where = "", ?string $order = "")
 	{
 		$sql = "SELECT
-		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, p_datetime, p_vote, p_status, p_reporting, p_category
+		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin'), p_vote, p_status, p_reporting, p_category
 		FROM post
 		INNER JOIN user ON p_author_fk = u_id
 		";
@@ -67,7 +67,6 @@ class Post extends Manager //A noter au moment du test dans index le p_author_fk
 		} */
 		$item = $query->fetch();
 
-		//var_dump($item);
 		//$object = new \models\entities\PostView($items);
 		//var_dump($object);
 

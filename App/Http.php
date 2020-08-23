@@ -17,28 +17,10 @@ class Http
         //exit();
 	}
 
-	/* public static function addSession(?string $attributs = '', ?object $user) //TODO a débuguer
-	{
-		$attributsArray = explode(", ", $attributs);
-		var_dump($attributsArray);
-				
-		$_SESSION = [];
-
-		foreach($attributsArray as $attribut)
-		{
-			$_SESSION[$attribut] = $user[$attribut];
-		}
-		var_dump($_SESSION);
-	} */
-
 	/**
-	 * Tableau de données utilisateur à détruire
-	 * exemple une déconnexion, j'oublie l'id de l'internaute
-	 *
-	 * @param array $data
 	 * @return void
 	 */
-	public static function killSession(array $data)
+	public static function killSession()
 	{
 		$_SESSION = array();
         session_destroy();

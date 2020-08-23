@@ -2,8 +2,6 @@
 
 namespace controllers;
 
-//use Models\Post;
-
 class Post extends Controller
 {
 	protected $model; //accessible dans la class même et la parente
@@ -14,9 +12,7 @@ class Post extends Controller
 	
 	public function insert()
     {
-		//Pour le test 
-		//TODO utiliser un service de session
-		$_SESSION['logedUser'] = 2;
+		$idUser = $_SESSION['u_nickname'];
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$post = new \models\entities\Post(
@@ -25,8 +21,7 @@ class Post extends Controller
 				'p_extract' => $_POST['p_extract'],
 				'p_content' => $_POST['p_content'],
 				'p_vote' => '0',
-				'p_author_fk' => $_SESSION['logedUser'],
-				'p_datetime' => \Service::dateFr(),
+				'p_author_fk' => $idUser,
 				'p_reporting' => 'Non signalé',
 				'p_category' => 'Présentation',
 				'p_status' => 'Non lu'
@@ -41,16 +36,7 @@ class Post extends Controller
 
 	public function update()
 	{
-		//Pour le test 
-		//TODO utiliser un service de session
-		$_SESSION['logedUser'] = 2;
-		$idUser = $_SESSION['logedUser'];
-
-		//TODO créer un service 
-		$date = new \DateTime();
-		
-		$dateStr = $date->format('Y-m-d H:i:s');
-		//$dateStr = $date->format('d-m-y H:i'); 
+		$idUser = $_SESSION['u_nickname'];
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedPost = new \models\entities\Post(
@@ -60,7 +46,6 @@ class Post extends Controller
 				'p_content' => $_POST['p_content'],
 				'p_vote' => '0',
 				'p_author_fk' => $_SESSION['logedUser'],
-				'p_datetime' => $dateStr,
 				'p_reporting' => 'Non signalé',
 				'p_category' => 'Présentation',
 				'p_status' => 'Non lu'
@@ -89,11 +74,14 @@ class Post extends Controller
 
 		$cssFile = "/public/css/post/index.css";
 
+		var_dump($posts);
+
         \Renderer::render('post/index', compact('pageTitle', 'posts', 'description', 'author', 'cssFile'));
     }
 
     public function show()
-    {
+    { 
+		var_dump($_GET['id']);
 		//Montrer un article
 		$post = $this->model->findWithHisAuthor($_GET['id']);
 		$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
@@ -102,7 +90,7 @@ class Post extends Controller
 
 		//utilisateur actuellement connecté, pour comparaison utlérieur
 		//$loggedUser = $_SESSION['u_nickname'];
-
+		var_dump($post);
 		//var_dump($item);
 		$pageTitle = $post->p_title; //head page (SEO)
 		

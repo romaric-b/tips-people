@@ -36,8 +36,10 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
     public function create(object $entity)
     {
         $query = $this->pdo->prepare("INSERT INTO {$this->table}
-                ({$this->sqlFields}) 
+                ({$this->sqlFields})
 				VALUES ({$this->values})");
+
+				var_dump($query);
 
 			$arrayFields = explode(", ", $this->sqlFields);
 		
@@ -118,6 +120,8 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 		//$items = $results->fetchObject('models\entities\\' . $entity);	
 
 		$items = array();
+
+		var_dump($entity);
 
 		//TODO vérifier si les entités fonctionnent autrement s'inspirer des requêtes à FETCH_OBJECT
 		while ($item = $results->fetchObject('models\entities\\' . $entity))

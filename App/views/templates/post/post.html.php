@@ -6,8 +6,7 @@ $loggedUser = $_SESSION['u_nickname']; ?>
 <p><?= $post->p_content ?></p>
 
 <?php 
-var_dump($post->p_author_name);
-var_dump($loggedUser);
+var_dump($post->p_id);
  ?>
 
 <?php if ( $loggedUser === $post->p_author_name );?>

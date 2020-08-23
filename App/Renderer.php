@@ -14,7 +14,6 @@ class Renderer //faire du rendu
      */
     public static function render(string $path, array $variables = []): void
     {
-		//var_dump($variables);
         extract($variables);
 
 		ob_start();

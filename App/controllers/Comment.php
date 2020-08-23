@@ -1,30 +1,16 @@
 <?php
 
-
 namespace controllers;
-
-
-//use Models\Comment;
 
 class Comment extends Controller
 {
     protected $model; //accessible dans la class même et la parente
     protected $modelName = '\models\Comment'; //= new CommentManager();
 	protected $modelJoindedName = '\models\User';
-	/* protected $entity;
-	protected $entityName = '\models\entities\Comment'; finalement non car constructeur intégré aux ()*/
-
-	/* public function showViewInsert()
-	{
-		
-	} */
-
+	
     public function insert()
     {
-		//Pour le test 
-		//TODO utiliser un service de session
-		
-		//$dateStr = $date->format('d-m-y H:i'); 
+		$idUser = $_SESSION['u_nickname'];
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le commentaire je l'ai, idem pour l'utilisateur qui commente
 		$comment = new \models\entities\Comment(
@@ -33,8 +19,7 @@ class Comment extends Controller
 				'c_content' => $_POST['c_content'],
 				'c_vote' => '0',
 				'c_post_fk' => $_GET['id'], //Sera plutôt dans la tambouille Http - App
-				'c_author_fk' => $_SESSION['logedUser'],
-				//'c_datetime' => \Service::dateFr(),
+				'c_author_fk' => $idUser,
 				'c_reporting' => 'Non signalé',
 				'c_status' => 'Non lu'
 			]
@@ -48,11 +33,7 @@ class Comment extends Controller
 
 	public function update()
 	{
-		//Pour le test 
-		//TODO utiliser un service de session
-		$_SESSION['logedUser'] = 2;
-		$idUser = $_SESSION['logedUser'];
-		//$dateStr = $date->format('d-m-y H:i'); 
+		$idUser = $_SESSION['u_nickname'];
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedComment = new \models\entities\Comment(
@@ -61,8 +42,7 @@ class Comment extends Controller
 				'c_content' => $_POST['c_content'],
 				'c_vote' => '0',
 				'c_post_fk' => $_GET['id'],
-				'c_author_fk' => $_SESSION['logedUser'],
-				//'c_datetime' => \Service::dateFr(),
+				'c_author_fk' => $idUser,
 				'c_reporting' => 'Non signalé',
 				'c_status' => 'Non lu'
 			]
