@@ -3,3 +3,27 @@ h2
 	color: brown;
 	text-decoration: underline;
 }
+
+*
+{
+	outline: solid green !important;
+}
+
+
+/*******************************
+
+SECTION POSTS AND CHILDS
+
+*******************************/
+.container-grid-4 
+{
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.container-grid-4 > * {
+    flex: 0 0 auto;
+	width: 25%;
+	outline: solid red;
+}

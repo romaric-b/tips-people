@@ -50,7 +50,7 @@ abstract class Controller
 		}
 		elseif($this->modelName === '\models\Post')
 		{
-			$items = $this->model->findAllWithTheirAuthor('p_id = ?', "");
+			$items = $this->model->findAllWithTheirAuthor();
 			
 			$pageTitle = "Gestion des articles";
 			$description = "Administration et modération des articles";

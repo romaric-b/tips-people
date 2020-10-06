@@ -12,7 +12,7 @@ class Post extends Controller
 	
 	public function insert()
     {
-		$idUser = $_SESSION['u_nickname'];
+		$idUser = $_SESSION['u_id'];
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$post = new \models\entities\Post(
@@ -28,10 +28,14 @@ class Post extends Controller
 			]
 		);
 		
+		//côté front
+		//$jsonPost = json_encode($post, JSON_UNESCAPED_UNICODE);
+
+		//côté serveur
 		$this->model->create($post);
 		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	
 		   //TODO ajax 
-		\Http::redirect("index.php?controller=post&task=index");
+		//\Http::redirect("index.php?controller=post&task=index");
 	}
 
 	public function update()
@@ -58,25 +62,30 @@ class Post extends Controller
 		\Http::redirect("index.php?controller=post&task=index");
 	}
 
+	//afficher les articles VERSION SYNCHRONE
     public function index()
     {
-        //montrer la liste
-
         //récupéré les articles
-		$posts = $this->model->findAll("p_datetime DESC"); //TODO faudra réadapter suite à protected $modelName...
-
-        //afficher les articles
+		$posts = $this->model->findAllWithTheirAuthor("p_datetime DESC");
+		
 		$pageTitle = "Articles";
 		
 		$description = "Liste des articles";
 
 		$author = "Invest People";
 
-		$cssFile = "/public/css/post/index.css";
+		$cssFile = "public/post/index.css";
 
-		var_dump($posts);
-
-        \Renderer::render('post/index', compact('pageTitle', 'posts', 'description', 'author', 'cssFile'));
+        \Renderer::render('post/index', compact('pageTitle', 'posts', 'description', 'author', 'cssFile')); 
+	}
+	
+	public function ajaxIndex()
+    {
+        //récupéré les articles		
+		$posts = $this->model->findAllWithTheirAuthor("p_datetime DESC");
+		//VERSION ASYNCHRONE
+		//pour ne pas se retrouver avec des caractère au mauvais format (genre iso au lieu d' utf-8)
+		echo json_encode($posts, JSON_UNESCAPED_UNICODE);
     }
 
     public function show()
@@ -90,7 +99,7 @@ class Post extends Controller
 
 		//utilisateur actuellement connecté, pour comparaison utlérieur
 		//$loggedUser = $_SESSION['u_nickname'];
-		var_dump($post);
+		//var_dump($post);
 		//var_dump($item);
 		$pageTitle = $post->p_title; //head page (SEO)
 		
@@ -102,7 +111,9 @@ class Post extends Controller
 		//Enregistré en session l'auteur ça me servira plus tard pour le droit de modification de l'article, même chose pour les commentaires
 		$_SESSION['p_author'] = $post->p_author_name;
 		
-		$cssFile = "/public/css/post/index.css";
+		$cssFile = "post/post.css";
+
+		var_dump($cssFile);
 		
 		//Utiliser compact comme un array
         \Renderer::render('post/post', compact('pageTitle', 'description', 'post', 'comments', 'author', 'cssFile'));

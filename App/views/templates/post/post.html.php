@@ -6,7 +6,8 @@ $loggedUser = $_SESSION['u_nickname']; ?>
 <p><?= $post->p_content ?></p>
 
 <?php 
-var_dump($post->p_id);
+/* var_dump($post->p_id);
+var_dump($cssFile); */
  ?>
 
 <?php if ( $loggedUser === $post->p_author_name );?>
@@ -26,7 +27,7 @@ var_dump($post->p_id);
 					<textarea rows="3" class="form-control" name="p_extract" placeholder="Tapez votre commentaire" id="message" required><?= $post->p_extract ?></textarea>
 
 					<label for="message">Contenu de votre article</label>
-					<textarea rows="10" class="form-control" name="p_content" placeholder="Tapez votre commentaire" id="message" required><?= $post->p_content ?></textarea>
+					<textarea rows="10" class="form-control" name="p_content" placeholder="Tapez votre commentaire" id="p_content" required><?= $post->p_content ?></textarea>
 				</div>
 			</div>
 			<br>

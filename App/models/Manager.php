@@ -39,7 +39,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
                 ({$this->sqlFields})
 				VALUES ({$this->values})");
 
-				var_dump($query);
+				//var_dump($query);
 
 			$arrayFields = explode(", ", $this->sqlFields);
 		
@@ -47,11 +47,15 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 
 			foreach($arrayFields as $sqlField)
 			{
-				//$datas[$sqlField] = $entity->__get($sqlField);
-				$datas[$sqlField] = $entity->$sqlField;
+				if (!is_null($entity->$sqlField))
+				{
+					//*  */var_dump($sqlField);
+					$datas[$sqlField] = $entity->$sqlField;
+				}
+				//$datas[$sqlField] = $entity->__get($sqlField); //passe par _get de toute façon
 			}
 			
-			var_dump($datas);
+			//var_dump($datas);
 
         $query->execute($datas);
     }
@@ -107,7 +111,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
         {
             $sql .= " ORDER BY " . $order; //je concatène à la var requête sql  pour rajouter à la fin l'ordre
 		}
-		var_dump($sql);
+		//var_dump($sql);
 
 		$results = $this->pdo->query($sql);
 

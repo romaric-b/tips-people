@@ -23,5 +23,14 @@ class Renderer //faire du rendu
         $pageContent = ob_get_clean();
 
         require('views/templates/layout.html.php');
-    }
+	}
+	
+	public static function ajaxRender(array $variables = []):void
+	{
+		extract($variables);
+
+		ob_start();
+
+		$ajaxContent = ob_get_clean();
+	}
 }

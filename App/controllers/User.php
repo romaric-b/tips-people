@@ -134,13 +134,13 @@ class User extends Controller
 				//\Http::addSession('u_nickname, u_number_speech, u_role', $matchedUser);
 
 				$_SESSION['u_nickname'] = $matchedUser['u_nickname'];
-				
+				$_SESSION['u_id'] = $matchedUser['u_id'];
 				$_SESSION['u_number_speech'] = $matchedUser['u_number_speech'];
 				$_SESSION['u_role'] = $matchedUser['u_role'];
 
-				var_dump($_SESSION['u_nickname']);
+				/* var_dump($_SESSION['u_nickname']);
 				var_dump($_SESSION['u_number_speech']);
-				var_dump($_SESSION['u_role']);
+				var_dump($_SESSION['u_role']); */
 
 				//TODO à refacto
 
