@@ -9,10 +9,10 @@
 			<input name="p_title" id="p_title" type="text" maxlength="150"></input>
 
 			<label for="p_extract">Résumé de votre article</label>
-			<textarea rows="3" class="form-control" name="p_extract" placeholder="Tapez votre commentaire" id="p_extract" required></textarea>
+			<textarea rows="3" class="form-control" name="p_extract" placeholder="Tapez votre commentaire" id="p_extract"></textarea>
 
 			<label for="p_content">Contenu de votre article</label>
-			<textarea rows="10" class="form-control" name="p_content" placeholder="Tapez votre commentaire" id="p_content" required></textarea>
+			<textarea rows="10" class="form-control" name="p_content" placeholder="Tapez votre commentaire" id="p_content"></textarea>
 		</div>
 	</div>
 	<br>

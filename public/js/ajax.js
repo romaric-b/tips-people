@@ -1,5 +1,4 @@
 //Récupérer aritlces, commentaires ou données utilisateurs
-
 getPosts = function()
 {
 	//Créer la requête pour se co au serveur et au bon controller
@@ -39,9 +38,9 @@ function postPost(e)
 	e.preventDefault();
 
 	//2 récupérer les données du formulaire
-	const p_title = $('#p_title').val();
-	const p_extract = $('#p_extract').val();
-	const p_content = $('#p_content').val();
+	const p_title = $('#p_title');
+	const p_extract = $('#p_extract');
+	const p_content = $('#p_content');
 	const p_author_fk = $('#u_id');
 
 	//console.log();
@@ -49,20 +48,25 @@ function postPost(e)
 	const data = new FormData();
 
 	//TODO récupérer l'intérieur des input
-	data.append('p_title', p_title);
-	data.append('p_extract', p_extract);
-	data.append('p_content', p_content);
+	data.append('p_title', p_title.val());
+	data.append('p_extract', p_extract.val());
+	data.append('p_content', p_content.val());
 
 	data.append('p_author_fk', p_author_fk.value);
 	console.log(data);
 
 	//4 configuration requête ajax en POST et envoie des données
 	const request = new XMLHttpRequest;
+	//Direction le controller PHP
 	request.open('POST', 'index.php?controller=post&task=insert');
 
 	//Ce que la requête fait lorsquelle est terminée
 	request.onload = function()
 	{
+		//Vider les champs du formulaire après écriture
+		/* p_title.val('');
+		p_extract.val('');
+		p_content.val(''); */
 		getPosts();
 	}
 

@@ -1,6 +1,16 @@
 <?php
 /* session_start(); */
-$loggedUser = $_SESSION['u_nickname']; ?>
+var_dump($post->p_author_name);
+if (isset($_SESSION['u_nickname']))
+{
+	$loggedUser = $_SESSION['u_nickname'];
+} 
+else
+{
+	$loggedUser = '';
+}
+
+?>
 <h1><?= $post->p_title ?></h1>
 <small>Ecrit le <?= $post->p_datetime ?> par <?= $post->p_author_name ?> </small>
 <p><?= $post->p_content ?></p>
@@ -10,7 +20,10 @@ $loggedUser = $_SESSION['u_nickname']; ?>
 var_dump($cssFile); */
  ?>
 
-<?php if ( $loggedUser === $post->p_author_name );?>
+<?php if ( $loggedUser === $post->p_author_name ):
+	var_dump($loggedUser);
+	var_dump($post->p_author_name);
+?>
 	<div>
 		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 			Modifier cet article
@@ -86,10 +99,12 @@ var_dump($cssFile); */
 				</div>
 			</form>
 		</div>
+		
 	
 
 	<?php endforeach; ?>
+	<?php endif;?>
 
 <?php elseif($comments == NULL): ?>
 	<p class="font-italic">Aucun commentaire à afficher</p>
-<?php endif; ?>
+<?php endif;?>
