@@ -7,32 +7,31 @@ $('.posts-link').on('click', function()
 	getPost();
 });
 
-
-
 //Partie formulaires
-function caracterNumber(e, field, minCaracterNb, maxCaracterNb)
-{
-	
-	e.preventDefault();
-	//console.log($(field).val().length);
+function caracterNumber(field, minCaracterNb, maxCaracterNb)
+{		
+	//e.preventDefault();
+	console.log(field);
 
 	if (($(field).val().length >= minCaracterNb) && ($(field).val().length <= maxCaracterNb))
 	{
 		return;
 	}
-	else if (!($(field).val().length >= minCaracterNb) && !($(field).val().length <= maxCaracterNb))
+	else if (($(field).val().length < minCaracterNb) || ($(field).val().length > maxCaracterNb))
 	{
-		console.log('dans la bonne condition');
-		$(field).after(
-			`<span class="error-field">Ce champ doit contenir au minimum ${minCaracterNb} maximum ${maxCaracterNb} caractères</span>`
-		);
-	}
-	else if ($(field).val().length == 0)
-	{
-		$(field).after(
-			`<span class="error-field">Ce champ ne peut être vide</span>`
-		);
-	}
+		if($(field + '+ span').hasClass('error-field-nb'))
+		{
+			console.log('if nb carac');
+			$(field + '+ span').css('font-weight', 'bold');
+			
+		}
+		else
+		{
+			$(field).after(
+				`<span class="error-field-nb">Ce champ doit contenir au minimum ${minCaracterNb} caractère et au maximum ${maxCaracterNb} caractères</span>`
+			);
+		}
+	}	
 }
 
 function emailFormat(field)
@@ -74,10 +73,19 @@ caracterNumber('#p_content', 5000);*/
 $('#formPostAjax').on('submit', function(e)
 {
 	//TODO étape vérification front du formulaire
-	caracterNumber(e, '#p_title', 1, 150);
-	caracterNumber(e, '#p_extract', 10, 300);
-	caracterNumber(e, '#p_content', 200, 5000);
+	caracterNumber('#p_title', 2, 150);
+	caracterNumber('#p_extract', 10, 300);
+	caracterNumber('#p_content', 200, 5000);
+	console.log('avant postPost');
 	postPost(e); //ReferenceError: e is not defined
 });
 
 //$('#formPostAjax').on('submit', postPost); //FONCTIONNE
+$('#formCommentAjax').on('submit', function(e)
+{
+	//TODO étape vérification front du formulaire
+	caracterNumber('#c_title', 2, 150);
+	caracterNumber('#c_content', 200, 5000);
+	console.log('avant postComment');
+	postPost(e); //ReferenceError: e is not defined
+});

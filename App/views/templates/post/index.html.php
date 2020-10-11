@@ -1,30 +1,53 @@
+<?php
+
+if (isset($_SESSION['u_nickname']))
+{
+	$loggedUser = $_SESSION['u_nickname'];
+} 
+else
+{
+	$loggedUser = '';
+}
+
+?>
+<section class="container-posts container-grid-4">
 <h1>Liste des articles</h1>
 
 <h2>Créer un nouvel article</h2>
 
-<form class="marg-top" id="formPostAjax"  method="post">
-	<div class="control-group">
-		<div class="form-group col floating-label-form-group controls">
-			<label for="p_title">Titre de votre article</label>
-			<input name="p_title" id="p_title" type="text" maxlength="150"></input>
+<?php if ($loggedUser != ''):?>
+<article class="container-grid-4">
+	<form class="marg-top" id="formPostAjax"  method="post">
+		<div class="control-group">
+			<div class="form-group col floating-label-form-group controls">
+				<label for="p_title">Titre de votre article</label>
+				<input name="p_title" id="p_title" type="text" maxlength="150"></input>
 
-			<label for="p_extract">Résumé de votre article</label>
-			<textarea rows="3" class="form-control" name="p_extract" placeholder="Tapez votre commentaire" id="p_extract"></textarea>
+				<label for="p_extract">Résumé de votre article</label>
+				<textarea rows="3" class="form-control" name="p_extract" placeholder="Tapez votre commentaire" id="p_extract"></textarea>
 
-			<label for="p_content">Contenu de votre article</label>
-			<textarea rows="10" class="form-control" name="p_content" placeholder="Tapez votre commentaire" id="p_content"></textarea>
+				<label for="p_content">Contenu de votre article</label>
+				<textarea rows="10" class="form-control" name="p_content" placeholder="Tapez votre commentaire" id="p_content"></textarea>
+			</div>
 		</div>
-	</div>
-	<br>
-	<div id="success-send"></div>
-	<div class="form-group">
-		<button type="submit" class="btn btn-primary" id="post_insert"><i class="far fa-comment"></i> Soumettre</button>
-	</div>
-</form>
+		<br>
+		<div id="success-send"></div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary" id="post_insert"><i class="far fa-comment"></i> Soumettre</button>
+		</div>
+	</form>
+</article>
 
+<?php elseif($loggedUser == ''):?>
+	<article class="container-grid-4">
+		<a class="nav-link" data-toggle="modal" data-target="#login-modal" href="#">Connectez-vous pour écrire un article</a>
+		<p>Si vous n'avez pas encore de compte, vous pouvez <a class="nav-link" id="open-register-form" data-toggle="modal" data-target="#register-modal" href="#">vous inscrire</a></p>
+	</article>
+	
+<?php endif;?>
 <!--TODO Relecture modale relecture/confirmation avant envoie-->
 
-<section class="container-posts container-grid-4">
+
 	<?php if ($posts != NULL): ?>
 		<?php foreach ($posts as $post) : ?>
 			<article class="post_<?= $post->p_id ?>">

@@ -143,6 +143,21 @@
 		?>"
 	>
 
+	<input id="p_id" name="p_id" type="hidden" value="
+		<?php 
+			if(isset($_SESSION['p_id']) && !empty($_SESSION['p_id']))
+			{
+				//user's id logged
+				echo $_SESSION['p_id'];
+			}
+			else
+			{
+				//for no user logged
+				echo 'no post oppened';
+			}
+		?>"
+	>
+
 	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

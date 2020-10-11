@@ -22,7 +22,6 @@ var_dump($cssFile); */
 
 <?php if ( $loggedUser === $post->p_author_name ):
 	var_dump($loggedUser);
-	var_dump($post->p_author_name);
 ?>
 	<div>
 		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -50,15 +49,17 @@ var_dump($cssFile); */
 			</div>
 		</form>
 	</div>
+<?php endif;?>
 
-<form class="marg-top" action="index.php?controller=comment&task=insert&id=<?= $post->p_id ?>" method="post">
+<?php if ($loggedUser != '' ):?>
+<form class="marg-top" id="formCommentAjax" method="post">
 	<div class="control-group">
 		<div class="form-group col floating-label-form-group controls">
 			<label for="c_title">Titre de votre commentaire</label>
 			<input name="c_title" id="c_title" type="text" maxlength="150"></input>
-			<label for="message">Votre commentaire</label>
+			<label for="c_content">Votre commentaire</label>
 			
-			<textarea rows="5" class="form-control" name="c_content" placeholder="Tapez votre commentaire" id="message" required></textarea>
+			<textarea rows="5" class="form-control" name="c_content" placeholder="Tapez votre commentaire" id="c_content" required></textarea>
 		</div>
 	</div>
 	<br>
@@ -67,15 +68,16 @@ var_dump($cssFile); */
 		<button type="submit" class="btn btn-primary" id="sendMessageButton"><i class="far fa-comment"></i>Soumettre</button>
 	</div>
 </form>
+<?php endif;?>
 
 <?php if ($comments != NULL): ?>
-
-	<?php foreach ($comments as $comment): ?>
+	<div class="container-comments">
 	<h2>Commentaires</h2>
-	<small>Commentaire de <?= $comment->c_author_name?></small>
+	<?php foreach ($comments as $comment): ?>
+	<small>Commentaire de <?= $comment->c_author_name?>, <?= $comment->c_datetime?></small>
 	<p><?=$comment->c_content?></p>
 
-	<?php if ($loggedUser === $comment->c_author_name); ?>
+	<?php if ($loggedUser === $comment->c_author_name): ?>
 		<div>
 			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#comment-update" aria-expanded="false" aria-controls="comment-update">
 				Modifier ce commentaire
@@ -99,12 +101,10 @@ var_dump($cssFile); */
 				</div>
 			</form>
 		</div>
-		
-	
-
+	<?php endif;?>		
 	<?php endforeach; ?>
-	<?php endif;?>
-
+	
+	</div>
 <?php elseif($comments == NULL): ?>
 	<p class="font-italic">Aucun commentaire à afficher</p>
 <?php endif;?>

@@ -10,7 +10,8 @@ class Comment extends Controller
 	
     public function insert()
     {
-		$idUser = $_SESSION['u_nickname'];
+		$idUser = $_SESSION['u_id'];
+		$idPost = $_SESSION['p_id'];
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le commentaire je l'ai, idem pour l'utilisateur qui commente
 		$comment = new \models\entities\Comment(
@@ -18,7 +19,7 @@ class Comment extends Controller
 				'c_title' => $_POST['c_title'],
 				'c_content' => $_POST['c_content'],
 				'c_vote' => '0',
-				'c_post_fk' => $_GET['id'], //Sera plutôt dans la tambouille Http - App
+				'c_post_fk' => $idPost, //Sera plutôt dans la tambouille Http - App
 				'c_author_fk' => $idUser,
 				'c_reporting' => 'Non signalé',
 				'c_status' => 'Non lu'
@@ -31,9 +32,16 @@ class Comment extends Controller
 		//\Http::redirect("index.php?controller=post&task=index");
 	}
 
+	public function ajaxComment()
+	{
+		$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
+
+		echo json_encode($comments, JSON_UNESCAPED_UNICODE);
+	}
+
 	public function update()
 	{
-		$idUser = $_SESSION['u_nickname'];
+		$idUser = $_SESSION['u_id'];
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedComment = new \models\entities\Comment(
