@@ -125,15 +125,12 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 
 		$items = array();
 
-		var_dump($entity);
-
 		//TODO vérifier si les entités fonctionnent autrement s'inspirer des requêtes à FETCH_OBJECT
 		while ($item = $results->fetchObject('models\entities\\' . $entity))
 		{
 			//Save result in an array
 			$items[] = $item;
 		}
-		var_dump($items);
 
 		//Pour le cas où j'ai 0 item pour éviter une erreur
 		/* if($items != NULL)
@@ -149,25 +146,35 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      *
      *************************************************************************************************/
 
-    public function update(?string $id = "", object $entity)
+    public function update(?string $id, ?object $entity)
     {
         //TODO les clé du set seront les mêmes que celle du execute donc 1 entrée retournera 2 résultats dont l'un en dessous pour le set et l'autre pour l'execute
 		//TODO dans le contrôleur ou ici il faudra utiliser une méthode transformant un array en string
-		var_dump($id);
+		//var_dump($entity);
 		var_dump($entity);
 
         $query = $this->pdo->prepare(
             "UPDATE {$this->table}
-			 set {$this->set} WHERE $id");
+			 set {$this->set} WHERE {$this->updateForId}");
 			 
-			$arrayFields = explode(", ", $this->sqlFields);
-		
+			 var_dump($query);
+
+			$updateFields = $id . ', ' . $this->sqlFields;
+			 
+			$arrayFields = explode(", ", $updateFields);
+			var_dump($arrayFields);
 			$datas = [];
 
 			foreach($arrayFields as $sqlField)
 			{
-				$datas[$sqlField] = $entity->__get($sqlField); //peut-être sans le _get()
+				if (!is_null($entity->$sqlField))
+				{
+					$datas[$sqlField] = $entity->$sqlField; //peut-être sans le _get()
+				/* var_dump($datas[$sqlField]);
+				var_dump($entity->__get($sqlField)); */
+				}
 			}
+			var_dump($datas);
 
 		$query->execute($datas);
 

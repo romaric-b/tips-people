@@ -42,23 +42,26 @@ class Comment extends Controller
 	public function update()
 	{
 		$idUser = $_SESSION['u_id'];
+		$idPost = $_SESSION['p_id'];
+		var_dump($_GET['id']);
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedComment = new \models\entities\Comment(
 			[
+				'c_id' => $_GET['id'],
 				'c_title' => $_POST['c_title'],
 				'c_content' => $_POST['c_content'],
 				'c_vote' => '0',
-				'c_post_fk' => $_GET['id'],
+				'c_post_fk' => $idPost,
 				'c_author_fk' => $idUser,
 				'c_reporting' => 'Non signalé',
 				'c_status' => 'Non lu'
 			]
 		);
 		
-		$this->model->update($idUser, $udaptedComment);
+		$this->model->update('c_id', $udaptedComment);
 		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	
 		   //TODO ajax sur cette url 
-		\Http::redirect("index.php?controller=post&task=index");
+		\Http::redirect("index.php?controller=post&task=view&id=" . $idPost . "");
 	}
 }

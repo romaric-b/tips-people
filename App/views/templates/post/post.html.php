@@ -1,10 +1,9 @@
 <?php
-/* session_start(); */
-var_dump($post->p_author_name);
+
 if (isset($_SESSION['u_nickname']))
 {
 	$loggedUser = $_SESSION['u_nickname'];
-} 
+}
 else
 {
 	$loggedUser = '';
@@ -15,13 +14,11 @@ else
 <small>Ecrit le <?= $post->p_datetime ?> par <?= $post->p_author_name ?> </small>
 <p><?= $post->p_content ?></p>
 
-<?php 
-/* var_dump($post->p_id);
-var_dump($cssFile); */
- ?>
+<?php
+?>
 
 <?php if ( $loggedUser === $post->p_author_name ):
-	var_dump($loggedUser);
+	
 ?>
 	<div>
 		<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -92,6 +89,7 @@ var_dump($cssFile); */
 						<label for="message">Votre commentaire</label>
 						
 						<textarea rows="5" class="form-control" name="c_content" placeholder="Tapez votre commentaire" id="message" required></textarea>
+						<input type="hidden" name="c_id">
 					</div>
 				</div>
 				<br>

@@ -11,7 +11,7 @@ class Post extends Manager //A noter au moment du test dans index le p_author_fk
 	protected $sqlFields = "p_author_fk, p_title, p_extract, p_content, p_vote, p_status, p_reporting, p_category, p_datetime";
 	protected $readingFields = "p_id, p_author_fk, p_title, p_extract, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin') AS p_datetime, p_vote, p_status, p_reporting, p_category";
 	protected $values = ":p_author_fk, :p_title, :p_extract, :p_content, :p_vote, :p_status, :p_reporting, :p_category, NOW()";	
-	protected $set = "p_title = :p_title, p_extract = :p_extract, p_content = :p_content, p_datetime = NOW(), p_vote = :p_vote, p_status = :p_status, p_reporting = :p_reporting, p_category = :p_category";
+	protected $set = "p_id = :p_id, p_author_fk = :p_author_fk, p_title = :p_title, p_extract = :p_extract, p_content = :p_content, p_vote = :p_vote, p_status = :p_status, p_reporting = :p_reporting, p_category = :p_category, p_datetime = NOW()";
 
 	//Pour les jointures
 	//protected $id = 'p_id';
@@ -24,6 +24,8 @@ class Post extends Manager //A noter au moment du test dans index le p_author_fk
 
 	protected $idFiedTable1 = "u_id";
 	protected $idFiedTable2 = "c_id";
+
+	protected $updateForId = "p_id = :p_id";
 	
 	public function findWithHisAuthor(?int $id, ?string $where = "", ?string $order = "")
 	{

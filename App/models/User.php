@@ -13,5 +13,6 @@ class User extends Manager
 	protected $values = ":u_id, :u_nickname, NOW(), :u_email, :u_password, :u_role, :u_number_speech";
 	protected $set = "u_nickname = :u_nickname, u_datetime = NOW(), u_email = :u_email, u_password = :u_password, u_role = :u_role, u_number_speech = :u_number_speech";
 
+	protected $updateForId = "u_id = :u_id";
 	//Functions are still existing by parent class Manager
 }

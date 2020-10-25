@@ -137,6 +137,8 @@ class User extends Controller
 				$_SESSION['u_id'] = $matchedUser['u_id'];
 				$_SESSION['u_number_speech'] = $matchedUser['u_number_speech'];
 				$_SESSION['u_role'] = $matchedUser['u_role'];
+				$_SESSION['u_email'] = $matchedUser['u_email'];
+				$_SESSION['u_datetime'] = $matchedUser['u_datetime'];
 
 				/* var_dump($_SESSION['u_nickname']);
 				var_dump($_SESSION['u_number_speech']);

@@ -23,9 +23,11 @@
 		<div class="col"><?= $user->u_email ?></div>
 		<div class="col"><?= $user->u_role ?></div>
 		<div class="col"><?= $user->u_number_speech ?></div>
-		<div class="btn-group" role="group" aria-label="actions">
-			<a href="index.php?controller=user&task=delete&id=<?= $user->u_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Bannir membre</a>
-		</div>
+		<div class="col">
+			<div class="btn-group" role="group" aria-label="actions">
+				<a href="index.php?controller=user&task=delete&id=<?= $user->u_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Bannir membre</a>
+			</div>
+		</div>		
     </div>
     <?php endforeach; ?>
 </div>

@@ -40,26 +40,29 @@ class Post extends Controller
 
 	public function update()
 	{
-		$idUser = $_SESSION['u_nickname'];
+		$idUser = $_SESSION['u_id'];
+		$idPost = $_SESSION['p_id'];
+		var_dump($idPost);
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedPost = new \models\entities\Post(
 			[
+				'p_id' => $idPost,
 				'p_title' => $_POST['p_title'],
 				'p_extract' => $_POST['p_extract'],
 				'p_content' => $_POST['p_content'],
 				'p_vote' => '0',
-				'p_author_fk' => $_SESSION['logedUser'],
+				'p_author_fk' => $idUser,
 				'p_reporting' => 'Non signalé',
 				'p_category' => 'Présentation',
 				'p_status' => 'Non lu'
 			]
 		);
 		
-		$this->model->update($idUser, $udaptedPost);
-		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	
+		$this->model->update('p_id', $udaptedPost);
+		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 
 		   //TODO ajax sur cette url 
-		\Http::redirect("index.php?controller=post&task=index");
+		//\Http::redirect("index.php?controller=post&task=index");
 	}
 
 	//afficher les articles VERSION SYNCHRONE
