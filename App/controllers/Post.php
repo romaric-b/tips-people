@@ -42,7 +42,7 @@ class Post extends Controller
 	{
 		$idUser = $_SESSION['u_id'];
 		$idPost = $_SESSION['p_id'];
-		var_dump($idPost);
+		//var_dump($idPost);
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedPost = new \models\entities\Post(
@@ -61,8 +61,9 @@ class Post extends Controller
 		
 		$this->model->update('p_id', $udaptedPost);
 		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 
-		   //TODO ajax sur cette url 
+		   
 		//\Http::redirect("index.php?controller=post&task=index");
+		\Http::redirect("index.php?controller=post&task=show&id=" . $idPost . "");
 	}
 
 	//afficher les articles VERSION SYNCHRONE

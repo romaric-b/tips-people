@@ -87,18 +87,19 @@ getComments = function()
 {
 	//Créer la requête pour se co au serveur et au bon controller
 	var request = new XMLHttpRequest;
-	request.open("GET", 'index.php?controller=comment&task=ajaxComments');
+	request.open("GET", 'index.php?controller=comment&task=ajaxComment');
 
 	//Une fois les data reçues, il faut les traiter, puis les afficher au format html
 	request.onload = function()
 	{
 		//responseText = voir ce que le serv a répondu
+		
 		var results = JSON.parse(request.responseText);
 
 		var html = results.map(function(comment)
 		{
 			return `
-			<article class="_${comment.c_id}">
+			<article class="c_id_${comment.c_id}">
 				<small>Ecrit le ${comment.c_datetime} par ${comment.c_author_name}</small>
 				<h2>${comment.c_title}</h2>
 				<p>${comment.c_content}</p>
@@ -125,11 +126,9 @@ function postComment(e)
 	const c_content = $('#c_content');
 	const c_author_fk = $('#u_id');
 
-	//console.log();
 	//3 conditionner les données
 	const data = new FormData();
 
-	//TODO récupérer l'intérieur des input
 	data.append('c_title', c_title.val());
 	data.append('c_content', c_content.val());
 	data.append('c_author_fk', c_author_fk.value);
@@ -139,7 +138,7 @@ function postComment(e)
 	const request = new XMLHttpRequest;
 	//Direction le controller PHP
 	request.open('POST', 'index.php?controller=comment&task=insert');
-
+	
 	//Ce que la requête fait lorsquelle est terminée
 	request.onload = function()
 	{
@@ -151,3 +150,63 @@ function postComment(e)
 	}
 	request.send(data);
 }
+
+/**
+ *  TODO a faire si j'ai le temps :
+ */
+/* function updateComment(e)
+{
+	console.log('update js lancée');
+	//1 stopper le submit du formulaire
+	e.preventDefault();
+
+	//2 récupérer les données du formulaire
+	const c_title_update = $('#c_title_update');
+	const c_content_update = $('#c_content_update');
+	const c_author_fk = $('#u_id');
+
+	console.log(c_title_update);
+	console.log(c_content_update);
+	console.log(c_author_fk);
+
+	//3 conditionner les données
+	const data = new FormData();
+
+	data.append('c_title_update', c_title_update.val());
+	data.append('c_content_update', c_content_update.val());
+	data.append('c_author_fk', c_author_fk.val());
+	//console.log(data.values);
+
+	for (var value of data.values()) {
+		console.log(value);
+	}
+
+	//4 configuration requête ajax en POST et envoie des données
+	//const request = new XMLHttpRequest();
+
+	//Vérifier si erreur
+	var request = new XMLHttpRequest();
+
+	//TODO Ne rentre pas dans la fonction d'update alors que l'url est bonne... Déjà cherché pendant des heures...
+	request.open("POST", "index.php?controller=comment&task=update", true);
+	request.setRequestHeader("Content-Type", "application/json");
+	request.onreadystatechange = function () {
+		if (request.readyState === 4 && request.status === 200) {
+		console.log('Ca marche !');
+		}
+	};
+	request.onerror = function() { console.log('erreur'); }
+
+	//var data = JSON.stringify({"data1": "pwet", "data2": "pwetpwet"});
+
+	request.onload = function()
+	{
+		//Vider les champs du formulaire après écriture
+		
+		getComments();
+	}
+
+	request.send(data);
+	
+	//Direction le controller PHP	
+} */

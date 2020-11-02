@@ -39,7 +39,8 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
                 ({$this->sqlFields})
 				VALUES ({$this->values})");
 
-				//var_dump($query);
+				/* var_dump($entity);
+				var_dump($query); */
 
 			$arrayFields = explode(", ", $this->sqlFields);
 		
@@ -151,7 +152,6 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
         //TODO les clé du set seront les mêmes que celle du execute donc 1 entrée retournera 2 résultats dont l'un en dessous pour le set et l'autre pour l'execute
 		//TODO dans le contrôleur ou ici il faudra utiliser une méthode transformant un array en string
 		//var_dump($entity);
-		var_dump($entity);
 
         $query = $this->pdo->prepare(
             "UPDATE {$this->table}
@@ -162,7 +162,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 			$updateFields = $id . ', ' . $this->sqlFields;
 			 
 			$arrayFields = explode(", ", $updateFields);
-			var_dump($arrayFields);
+			
 			$datas = [];
 
 			foreach($arrayFields as $sqlField)
@@ -174,7 +174,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 				var_dump($entity->__get($sqlField)); */
 				}
 			}
-			var_dump($datas);
+			//var_dump($datas);
 
 		$query->execute($datas);
 

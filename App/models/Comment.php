@@ -34,9 +34,9 @@ class Comment extends Manager
 	//Function of this class specialy
 	public function findWithHisAuthor(?int $id, ?string $where = "", ?string $order = "")
 	{
-		var_dump($id);
+		//var_dump($id);
 		$sql = "SELECT
-		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, c_datetime, c_vote, c_status, c_reporting, c_post_fk
+		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, DATE_FORMAT(c_datetime, '%d/%m/%Y à %Hh%imin'), c_vote, c_status, c_reporting, c_post_fk
 		FROM comment
 		INNER JOIN user ON c_author_fk = u_id
 		";
@@ -56,6 +56,12 @@ class Comment extends Manager
 		{
 			$sql .= " ORDER BY " . $order; 
 		}
+		elseif (empty($order))
+		{
+			$sql .= " ORDER BY " . "c_datetime DESC";
+		}
+
+		//var_dump($sql);
 
 		//var_dump($sql);
 		$query = $this->pdo->prepare($sql);

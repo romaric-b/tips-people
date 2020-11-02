@@ -26,7 +26,7 @@ abstract class Entity //testé ok
      */
     public function __set($attribut, $value)
     {
-		var_dump('__set de l entité');
+		//*  */var_dump('__set de l entité');
         if (property_exists($this, $attribut))
         {
             $this->$attribut = $value;
@@ -37,7 +37,7 @@ abstract class Entity //testé ok
 
     public function __get($property)
     {
-		var_dump('__get de l entité');
+		//var_dump('__get de l entité');
         return $this->$property;
     }
 }

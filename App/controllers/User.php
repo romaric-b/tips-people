@@ -161,6 +161,19 @@ class User extends Controller
 		}
 	}
 
+	public function viewProfile()
+	{
+		$pageTitle = "Profile";
+		
+		$description = "Informations du votre profile";
+
+		$author = "Invest People";
+
+		$cssFile = "public/post/index.css";
+
+		\Renderer::render('user/profile', compact('pageTitle', 'description', 'author', 'cssFile'));
+	}
+
 	public function disconnect()
 	{
 		\Http::killSession();

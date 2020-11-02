@@ -16,44 +16,42 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top" id="banner">
 	<div class="container">
-  <!-- Brand -->
-  <a class="navbar-brand" href="#"><span>Logo</span> Here</a>
+		<!-- Brand -->
+		<a class="navbar-brand" href="#"><span>Logo</span> Here</a>
 
-  <!-- Toggler/collapsibe Button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+		<!-- Toggler/collapsibe Button -->
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-  <!-- Navbar links -->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-	  	<a class="nav-link" id="open-register-form"  data-toggle="modal" data-target="#register-modal" href="#">Inscription</a>
-      </li>
-      <li class="nav-item">
-	  	<a class="nav-link" data-toggle="modal" data-target="#login-modal"  href="#">Connexion</a>
-	  </li>
-	  <li class="nav-item">
-	  	<a class="nav-link" href="index.php?controller=user&task=disconnect">Déconnexion</a>
-	  </li>	 
-      <li class="nav-item">
-		<a class="nav-link posts-link" href="index.php?controller=post&task=index">Articles</a>
-		<!--<a class="nav-link posts-link" href="#">Articles</a>-->
-      </li> 
-	   <!-- Dropdown -->
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        Dropdown link
-      </a>
-      <div class="dropdown-menu">
-	  	<buttou class="btn btn-secondary ajax--btn">Afficher Les articles en ajax</buttou>
-        <a class="dropdown-item" href="#">Link 1</a>
-        <a class="dropdown-item" href="#">Link 2</a>
-        <a class="dropdown-item" href="#">Link 3</a>
-      </div>
-    </li>
-    </ul>
-  </div>
+	<!-- Navbar links -->
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav ml-auto">
+				
+				<?php if(isset($_SESSION['u_nickname']) && !empty($_SESSION['u_nickname'])):?>				
+				<li class="nav-item">
+					<a class="nav-link" href="index.php?controller=user&task=viewProfile">Mon profile</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="index.php?controller=user&task=disconnect">Déconnexion</a>
+				</li>
+				<?php endif;?>
+				<?php if(!isset($_SESSION['u_nickname'])):?>
+				<li class="nav-item">
+					<a class="nav-link" id="open-register-form"  data-toggle="modal" data-target="#register-modal" href="#">Inscription</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-toggle="modal" data-target="#login-modal"  href="#">Connexion</a>
+				</li>
+				<?php endif;?>
+				<li class="nav-item">
+					<a class="nav-link posts-link" href="index.php?controller=post&task=index">Articles</a>
+					<!--<a class="nav-link posts-link" href="#">Articles</a>-->
+				</li> 
+			<!-- Dropdown -->
+				
+			</ul>
+		</div>
 	</div>
 </nav>
 

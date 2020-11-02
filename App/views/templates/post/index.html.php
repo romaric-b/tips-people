@@ -10,7 +10,7 @@ else
 }
 
 ?>
-<section class="container-posts container-grid-4">
+<main class="container-grid-4">
 <h1>Liste des articles</h1>
 
 <h2>Créer un nouvel article</h2>
@@ -47,18 +47,19 @@ else
 <?php endif;?>
 <!--TODO Relecture modale relecture/confirmation avant envoie-->
 
+	<section class="container-posts">
+		<?php if ($posts != NULL): ?>
+			<?php foreach ($posts as $post) : ?>
+				<article class="post_<?= $post->p_id ?>">
+					<h2><?= $post->p_title ?></h2>
+					<small>Ecrit le <?= $post->p_datetime ?> par <?= $post->p_author_name ?></small>
+					<p><?= $post->p_extract ?></p>
+					<a href="index.php?controller=post&task=show&id=<?= $post->p_id ?>">Lire la suite</a> 
+				</article>
+			<?php endforeach; ?> 
 
-	<?php if ($posts != NULL): ?>
-		<?php foreach ($posts as $post) : ?>
-			<article class="post_<?= $post->p_id ?>">
-				<h2><?= $post->p_title ?></h2>
-				<small>Ecrit le <?= $post->p_datetime ?> par <?= $post->p_author_name ?></small>
-				<p><?= $post->p_extract ?></p>
-				<a href="index.php?controller=post&task=show&id=<?= $post->p_id ?>">Lire la suite</a> 
-			</article>
-		<?php endforeach; ?> 
-
-	<?php elseif($posts == NULL): ?>
-		<p class="font-italic">Aucun article à afficher</p>
-	<?php endif; ?>
-</section>
+		<?php elseif($posts == NULL): ?>
+			<p class="font-italic">Aucun article à afficher</p>
+		<?php endif; ?>
+	</section>	
+</main>

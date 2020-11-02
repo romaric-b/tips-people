@@ -32,25 +32,32 @@ class Comment extends Controller
 		//\Http::redirect("index.php?controller=post&task=index");
 	}
 
+	//Utilisée en lecture ajax
 	public function ajaxComment()
 	{
-		$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
+		//var_dump($_GET['id']);
+		$idPost = $_SESSION['p_id'];
+
+		//$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
+		$comments = $this->model->findWithHisAuthor($idPost);
 
 		echo json_encode($comments, JSON_UNESCAPED_UNICODE);
 	}
 
 	public function update()
 	{
+		var_dump('dans control update');
 		$idUser = $_SESSION['u_id'];
 		$idPost = $_SESSION['p_id'];
-		var_dump($_GET['id']);
+		//var_dump($_GET['id']);
+		var_dump($_POST['c_id']);
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedComment = new \models\entities\Comment(
 			[
-				'c_id' => $_GET['id'],
-				'c_title' => $_POST['c_title'],
-				'c_content' => $_POST['c_content'],
+				'c_id' => $_POST['c_id'],
+				'c_title' => $_POST['c_title_update'],
+				'c_content' => $_POST['c_content_update'],
 				'c_vote' => '0',
 				'c_post_fk' => $idPost,
 				'c_author_fk' => $idUser,
@@ -58,10 +65,12 @@ class Comment extends Controller
 				'c_status' => 'Non lu'
 			]
 		);
+
+		var_dump($udaptedComment);
 		
 		$this->model->update('c_id', $udaptedComment);
 		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	
 		   //TODO ajax sur cette url 
-		\Http::redirect("index.php?controller=post&task=view&id=" . $idPost . "");
+		\Http::redirect("index.php?controller=post&task=show&id=" . $idPost . "");
 	}
 }

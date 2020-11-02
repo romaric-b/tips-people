@@ -75,9 +75,8 @@ $('#formPostAjax').on('submit', function(e)
 	//TODO étape vérification front du formulaire
 	caracterNumber('#p_title', 2, 150);
 	caracterNumber('#p_extract', 10, 300);
-	caracterNumber('#p_content', 200, 5000);
-	console.log('avant postPost');
-	postPost(e); //ReferenceError: e is not defined
+	caracterNumber('#p_content', 100, 5000);
+	postPost(e); 
 });
 
 //$('#formPostAjax').on('submit', postPost); //FONCTIONNE
@@ -85,7 +84,19 @@ $('#formCommentAjax').on('submit', function(e)
 {
 	//TODO étape vérification front du formulaire
 	caracterNumber('#c_title', 2, 150);
-	caracterNumber('#c_content', 200, 5000);
-	console.log('avant postComment');
-	postPost(e); //ReferenceError: e is not defined
+	caracterNumber('#c_content', 100, 5000);
+	postComment(e); 
 });
+
+/********************************
+ * 
+ *  A FAIRE SI TEMPS DISPO
+ * 
+ ********************************/
+//UPDATE COMMENT EN AJAX
+/* $('#formCommentUpdateAjax').on('submit', function(e)
+{	
+	caracterNumber('#c_title_update', 2, 150);
+	caracterNumber('#c_content_update', 100, 5000);
+	updateComment(e); 
+}); */

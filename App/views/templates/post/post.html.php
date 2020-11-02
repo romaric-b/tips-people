@@ -57,6 +57,7 @@ else
 			<label for="c_content">Votre commentaire</label>
 			
 			<textarea rows="5" class="form-control" name="c_content" placeholder="Tapez votre commentaire" id="c_content" required></textarea>
+			<input type="hidden" name="p_id" value="<?= $post->p_id ?>"
 		</div>
 	</div>
 	<br>
@@ -73,29 +74,29 @@ else
 	<?php foreach ($comments as $comment): ?>
 	<small>Commentaire de <?= $comment->c_author_name?>, <?= $comment->c_datetime?></small>
 	<p><?=$comment->c_content?></p>
-
 	<?php if ($loggedUser === $comment->c_author_name): ?>
 		<div>
-			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#comment-update" aria-expanded="false" aria-controls="comment-update">
+			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#comment-update-<?= $comment->c_id ?>" aria-expanded="false" aria-controls="comment-update">
 				Modifier ce commentaire
 			</button>
 		</div>
-		<div class="collapse" id="comment-update">
-			<form class="marg-top" action="index.php?controller=comment&task=update&id=<?= $comment->c_id ?>" method="post">
+		<div class="collapse" id="comment-update-<?= $comment->c_id ?>">
+		<!--id="formCommentUpdateAjax"  -->
+			<form class="marg-top" action="index.php?controller=comment&task=update" method="post">
 				<div class="control-group">
 					<div class="form-group col floating-label-form-group controls">
-						<label for="c_title">Titre de votre commentaire</label>
-						<input name="c_title" id="c_title" type="text" maxlength="150"></input>
+						<label for="c_title_update">Titre de votre commentaire</label>
+						<input name="c_title_update" id="c_title_update" type="text" maxlength="150"></input>
 						<label for="message">Votre commentaire</label>
 						
-						<textarea rows="5" class="form-control" name="c_content" placeholder="Tapez votre commentaire" id="message" required></textarea>
-						<input type="hidden" name="c_id">
+						<textarea rows="5" class="form-control" name="c_content_update" placeholder="Tapez votre commentaire" id="c_content_update" required></textarea>
+						<input type="hidden" name="c_id" value="<?= $comment->c_id ?>">
 					</div>
 				</div>
 				<br>
 				<div id="success-send"></div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary" id=""><i class="far fa-comment"></i>Soumettre</button>
+					<button type="submit" class="btn btn-primary" id="updateCommentButton"><i class="far fa-comment"></i>Soumettre</button>
 				</div>
 			</form>
 		</div>
