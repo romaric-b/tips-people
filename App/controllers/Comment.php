@@ -45,11 +45,11 @@ class Comment extends Controller
 
 	public function update()
 	{
-		var_dump('dans control update');
+		//var_dump('dans control update');
 		$idUser = $_SESSION['u_id'];
 		$idPost = $_SESSION['p_id'];
 		//var_dump($_GET['id']);
-		var_dump($_POST['c_id']);
+		//var_dump($_POST['c_id']);
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedComment = new \models\entities\Comment(
@@ -64,7 +64,7 @@ class Comment extends Controller
 			]
 		);
 
-		var_dump($udaptedComment);
+		//var_dump($udaptedComment);
 		
 		$this->model->update('c_id', $udaptedComment);
 		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	

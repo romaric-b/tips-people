@@ -76,7 +76,7 @@ class Post extends Controller
 
 		$author = "Invest People";
 
-		$cssFile = "public/post/index.css";
+		$cssFile = "post/index.css";
 
         \Renderer::render('post/index', compact('pageTitle', 'posts', 'description', 'author', 'cssFile')); 
 	}
@@ -92,7 +92,7 @@ class Post extends Controller
 
     public function show()
     { 
-		var_dump($_GET['id']);
+		//var_dump($_GET['id']);
 		//Montrer un article
 		$post = $this->model->findWithHisAuthor($_GET['id']);
 		$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
@@ -115,7 +115,7 @@ class Post extends Controller
 		
 		$cssFile = "post/post.css";
 
-		var_dump($cssFile);
+		//var_dump($cssFile);
 		
 		//Utiliser compact comme un array
         \Renderer::render('post/post', compact('pageTitle', 'description', 'post', 'comments', 'author', 'cssFile'));

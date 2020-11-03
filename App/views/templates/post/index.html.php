@@ -10,10 +10,10 @@ else
 }
 
 ?>
-<main class="container-grid-4">
-<h1>Liste des articles</h1>
 
-<h2>Créer un nouvel article</h2>
+<h1 class="title-page">Liste des articles</h1>
+
+<h2 class="title-section">Créer un nouvel article</h2>
 
 	<div class="left-bloc">
 		<?php if ($loggedUser != ''):?>
@@ -40,9 +40,9 @@ else
 		</article>
 
 		<?php elseif($loggedUser == ''):?>
-			<article class="container-grid-4">
+			<article class="post-connexion">
 				<a class="nav-link" data-toggle="modal" data-target="#login-modal" href="#">Connectez-vous pour écrire un article</a>
-				<p>Si vous n'avez pas encore de compte, vous pouvez <a class="nav-link" id="open-register-form" data-toggle="modal" data-target="#register-modal" href="#">vous inscrire</a></p>
+				<p class="block">Si vous n'avez pas encore de compte, vous pouvez <a class="nav-link inline" id="open-register-form" data-toggle="modal" data-target="#register-modal" href="#">vous inscrire</a></p>
 			</article>
 			
 		<?php endif;?>
@@ -67,4 +67,4 @@ else
 
 	<div class="right-bloc receive-flux-twitter">
 	</div>
-</main>
+

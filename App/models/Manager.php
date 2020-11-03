@@ -75,12 +75,12 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      */
     public function find(int $id) //TODO : sûrement besoin de fetchObject()  vérifier aussi close req->cursor()
     {
-		var_dump($id);
+		//var_dump($id);
         $query = $this->pdo->prepare("SELECT {$this->readingFields} FROM {$this->table} WHERE {$this->id} = :{$this->id}");
 		//Requete préparées sécurité ?
 		
 		/* var_dump($this->id); */
-		var_dump($this->id);
+		//var_dump($this->id);
         $query->execute(array($this->id => $id));
         $item = $query->fetch();
         return $item;
@@ -93,7 +93,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 		
 		//$query .= " where " . $col . " = " . $value;
 
-		var_dump($query);		
+		//var_dump($query);		
 		
         $query->execute(array($col => $value));
         $item = $query->fetch();
@@ -157,7 +157,7 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
             "UPDATE {$this->table}
 			 set {$this->set} WHERE {$this->updateForId}");
 			 
-			 var_dump($query);
+			 //var_dump($query);
 
 			$updateFields = $id . ', ' . $this->sqlFields;
 			 
@@ -195,10 +195,10 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      */
     public function delete(?string $column,int $id):void
     {
-		var_dump($id);
+		//var_dump($id);
 		$query = $this->pdo->prepare("DELETE FROM {$this->table} WHERE $column = :id");
 		
-		var_dump($query);
+		//var_dump($query);
         //Requete préparées sécurité ?
         $query->execute(['id' => $id]);
     }

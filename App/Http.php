@@ -12,7 +12,6 @@ class Http
      */
     public static function redirect(string $url):void
     {
-		var_dump('dans http redirect');
         header("Location: " . $url);
         //exit();
 	}

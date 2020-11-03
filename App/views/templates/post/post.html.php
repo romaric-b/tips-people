@@ -10,9 +10,13 @@ else
 }
 
 ?>
-<h1><?= $post->p_title ?></h1>
-<small>Ecrit le <?= $post->p_datetime ?> par <?= $post->p_author_name ?> </small>
-<p><?= $post->p_content ?></p>
+
+<article class="post">
+	<h1><?= $post->p_title ?></h1>
+	<span>Ecrit le <?= $post->p_datetime ?> par <?= $post->p_author_name ?> </span>
+	<p><?= $post->p_content ?></p>
+</article>
+
 
 <?php
 ?>
@@ -70,12 +74,16 @@ else
 
 <?php if ($comments != NULL): ?>
 	<div class="container-comments">
-	<h2>Commentaires</h2>
+	
+	<h2 class="title-section">Commentaires</h2>
 	<?php foreach ($comments as $comment): ?>
-	<small>Commentaire de <?= $comment->c_author_name?>, <?= $comment->c_datetime?></small>
-	<p><?=$comment->c_content?></p>
+	<div class="comment--div">
+		<span class="comment-info--span">Commentaire de <?= $comment->c_author_name?>, <?= $comment->c_datetime?></span>
+		<p><?=$comment->c_content?></p>
+	</div>
+	
 	<?php if ($loggedUser === $comment->c_author_name): ?>
-		<div>
+		<div class="update-comment--div">
 			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#comment-update-<?= $comment->c_id ?>" aria-expanded="false" aria-controls="comment-update">
 				Modifier ce commentaire
 			</button>
