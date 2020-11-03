@@ -11,7 +11,6 @@
 			<div class="col">Date</div>
 			<div class="col">Statut</div>
 			<div class="col">Signalement(s)</div>
-			<div class="col">Vote(s)</div>
 			<div class="col">Catégorie</div>
 			<div class="col">Actions</div>
 			<!-- <div class="col">Nombre commentaire(s)</div> -->
@@ -28,7 +27,6 @@
 		<div class="col"><?= $post->p_datetime ?></div>
 		<div class="col"><?= $post->p_status ?></div>
 		<div class="col"><?= $post->p_reporting ?></div>
-		<div class="col"><?= $post->p_vote ?></div>
 		<div class="col"><?= $post->p_category ?></div>
 		<div class="col">
 		<div class="btn-group" role="group" aria-label="actions">				

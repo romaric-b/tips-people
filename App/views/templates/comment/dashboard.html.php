@@ -10,7 +10,6 @@
 		<div class="col">Date</div>
 		<div class="col">Statut</div>
 		<div class="col">Signalement(s)</div>
-		<div class="col">Vote(s)</div>
 		<div class="col">Catégorie</div>
     </div>
   </div>
@@ -27,7 +26,6 @@
 		<div class="col"><?= $comment->c_datetime ?></div>
 		<div class="col"><?= $comment->c_status ?></div>
 		<div class="col"><?= $comment->c_reporting ?></div>
-		<div class="col"><?= $comment->c_vote ?></div>
 		<div class="col"><?= $comment->p_category ?></div>
     </div>
     <?php endforeach; ?>

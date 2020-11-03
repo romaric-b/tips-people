@@ -18,7 +18,6 @@ class Comment extends Controller
 			[
 				'c_title' => $_POST['c_title'],
 				'c_content' => $_POST['c_content'],
-				'c_vote' => '0',
 				'c_post_fk' => $idPost, //Sera plutôt dans la tambouille Http - App
 				'c_author_fk' => $idUser,
 				'c_reporting' => 'Non signalé',
@@ -58,7 +57,6 @@ class Comment extends Controller
 				'c_id' => $_POST['c_id'],
 				'c_title' => $_POST['c_title_update'],
 				'c_content' => $_POST['c_content_update'],
-				'c_vote' => '0',
 				'c_post_fk' => $idPost,
 				'c_author_fk' => $idUser,
 				'c_reporting' => 'Non signalé',

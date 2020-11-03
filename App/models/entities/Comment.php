@@ -13,7 +13,6 @@ class Comment extends Entity //ok
      * @var $c_datetime string datetime TODO formater date soit dans model soit via la class de controles
      * @var $c_title string title of comment varchar(150)
      * @var $c_content string text content of comment
-     * @var $c_vote int number of votes for this comment
      */
 	public $c_id;
 	public $c_post_title;
@@ -25,6 +24,4 @@ class Comment extends Entity //ok
     public $c_datetime;
     public $c_title;
     public $c_content;
-    public $c_vote;
-
 }

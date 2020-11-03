@@ -4,14 +4,14 @@ namespace models;
 use PDO;
 
 
-class Post extends Manager //A noter au moment du test dans index le p_author_fk et p_vote passent avec ou sans '' (soit dans le tableau au moment de l'instanciation soit avec $post->p_vote = 0;) 
+class Post extends Manager 
 {
     //Define properties declared in Manager pour my Post Manager
 	protected $table = "post";
-	protected $sqlFields = "p_author_fk, p_title, p_extract, p_content, p_vote, p_status, p_reporting, p_category, p_datetime";
-	protected $readingFields = "p_id, p_author_fk, p_title, p_extract, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin') AS p_datetime, p_vote, p_status, p_reporting, p_category";
-	protected $values = ":p_author_fk, :p_title, :p_extract, :p_content, :p_vote, :p_status, :p_reporting, :p_category, NOW()";	
-	protected $set = "p_id = :p_id, p_author_fk = :p_author_fk, p_title = :p_title, p_extract = :p_extract, p_content = :p_content, p_vote = :p_vote, p_status = :p_status, p_reporting = :p_reporting, p_category = :p_category, p_datetime = NOW()";
+	protected $sqlFields = "p_author_fk, p_title, p_extract, p_content, p_status, p_reporting, p_category, p_datetime";
+	protected $readingFields = "p_id, p_author_fk, p_title, p_extract, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin') AS p_datetime, p_status, p_reporting, p_category";
+	protected $values = ":p_author_fk, :p_title, :p_extract, :p_content, :p_status, :p_reporting, :p_category, NOW()";	
+	protected $set = "p_id = :p_id, p_author_fk = :p_author_fk, p_title = :p_title, p_extract = :p_extract, p_content = :p_content, p_status = :p_status, p_reporting = :p_reporting, p_category = :p_category, p_datetime = NOW()";
 
 	//Pour les jointures
 	//protected $id = 'p_id';
@@ -30,7 +30,7 @@ class Post extends Manager //A noter au moment du test dans index le p_author_fk
 	public function findWithHisAuthor(?int $id, ?string $where = "", ?string $order = "")
 	{
 		$sql = "SELECT
-		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin'), p_vote, p_status, p_reporting, p_category
+		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin'), p_status, p_reporting, p_category
 		FROM post
 		INNER JOIN user ON p_author_fk = u_id
 		";
@@ -78,7 +78,7 @@ class Post extends Manager //A noter au moment du test dans index le p_author_fk
 	public function findAllWithTheirAuthor(?string $order = "p_datetime DESC")
 	{
 		$sql = "SELECT
-		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, p_datetime, p_vote, p_status, p_reporting, p_category
+		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, p_datetime, p_status, p_reporting, p_category
 		FROM post
 		INNER JOIN user ON p_author_fk = u_id
 		";

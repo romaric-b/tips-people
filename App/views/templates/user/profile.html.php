@@ -7,7 +7,6 @@
 		<li>Pseudo : <?php echo $_SESSION['u_nickname']?></li>
 		<li>Adresse email : <?php echo $_SESSION['u_email']?></li>
 		<li>Rôle : <?php echo $_SESSION['u_role']?></li>
-		<li>Nombre d'interventions : <?php echo $_SESSION['u_number_speech']?></li>
 		<li>Date d'inscription : <?php echo $_SESSION['u_datetime']?></li>
 	</ul>
 </section>

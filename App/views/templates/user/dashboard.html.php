@@ -9,7 +9,6 @@
 		<div class="col">Date d'inscription</div>
 		<div class="col">email</div>
 		<div class="col">role</div>
-		<div class="col">Nombre de messages</div>
 		<div class="col">Action</div>
     </div>
   </div>
@@ -22,7 +21,6 @@
 		<div class="col"><?= $user->u_datetime ?></div>
 		<div class="col"><?= $user->u_email ?></div>
 		<div class="col"><?= $user->u_role ?></div>
-		<div class="col"><?= $user->u_number_speech ?></div>
 		<div class="col">
 			<div class="btn-group" role="group" aria-label="actions">
 				<a href="index.php?controller=user&task=delete&id=<?= $user->u_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Bannir membre</a>

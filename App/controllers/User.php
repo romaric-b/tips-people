@@ -71,8 +71,6 @@ class User extends Controller
 						'u_nickname' => $nickname,
 						'u_email' => $email,
 						'u_password' => $password,
-						//'u_datetime' => $dateStr,
-						'u_number_speech' => 0,
 						'u_role' => 'Nouveau Membre'
 					]
 				);
@@ -131,17 +129,15 @@ class User extends Controller
 				//$hashPass = password_hash($loggingUser->u_password, PASSWORD_DEFAULT);
 
 				//3: Enregistrement en session des données utilisateurs utiles à la navigation
-				//\Http::addSession('u_nickname, u_number_speech, u_role', $matchedUser);
+				//\Http::addSession('u_nickname, u_role', $matchedUser);
 
 				$_SESSION['u_nickname'] = $matchedUser['u_nickname'];
 				$_SESSION['u_id'] = $matchedUser['u_id'];
-				$_SESSION['u_number_speech'] = $matchedUser['u_number_speech'];
 				$_SESSION['u_role'] = $matchedUser['u_role'];
 				$_SESSION['u_email'] = $matchedUser['u_email'];
 				$_SESSION['u_datetime'] = $matchedUser['u_datetime'];
 
 				/* var_dump($_SESSION['u_nickname']);
-				var_dump($_SESSION['u_number_speech']);
 				var_dump($_SESSION['u_role']); */
 
 				//TODO à refacto

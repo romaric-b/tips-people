@@ -16,7 +16,6 @@ class Post extends Entity //ok
      * @var $p_extract string
      * @var $p_content string
      * @var $p_datetime string
-     * @var $p_vote int
      * @var $p_status string enum('Brouillon', 'Publié', 'Modifié', 'Supprimé')
      * @var $p_reporting string enum('Signalé', 'Non signalé', 'Modéré')
      * @var $p_category string  enum('Présentation','Analyse Fondamentale','Stratégie d''investissement','Ressources, lexique, tutoriels','Trading','Divers')
@@ -28,7 +27,6 @@ class Post extends Entity //ok
     public $p_extract;
     public $p_content;
     public $p_datetime;
-    public $p_vote;
     public $p_status;
     public $p_reporting;
 	public $p_category;

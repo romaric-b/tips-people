@@ -12,7 +12,6 @@ class User extends Entity //ok
      * @var string $u_email
      * @var string $u_password
      * @var string $u_role
-     * @var string $u_number_speech number posts and comments
      */
     public $u_id;
     public $u_nickname;
@@ -20,5 +19,4 @@ class User extends Entity //ok
     public $u_email;
     public $u_password;
     public $u_role;
-    public $u_number_speech;
 }
