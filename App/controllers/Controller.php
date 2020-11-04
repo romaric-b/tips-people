@@ -39,7 +39,7 @@ abstract class Controller
 	 */
 	public function dashboard()
 	{
-		$cssFile = "/public/css/dashboard.css";
+		$cssFile = "/dashboard.css";
 
 		if($this->modelName === '\models\User')
 		{

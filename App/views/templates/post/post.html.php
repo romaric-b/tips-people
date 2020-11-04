@@ -77,7 +77,7 @@ else
 	
 	<h2 class="title-section">Commentaires</h2>
 	<?php foreach ($comments as $comment): ?>
-	<div class="comment--div">
+	<div id="<?= $comment->c_id ?>" class="comment--div">
 		<span class="comment-info--span">Commentaire de <?= $comment->c_author_name?>, <?= $comment->c_datetime?></span>
 		<p><?=$comment->c_content?></p>
 	</div>

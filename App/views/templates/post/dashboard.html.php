@@ -12,7 +12,7 @@
 			<div class="col">Statut</div>
 			<div class="col">Signalement(s)</div>
 			<div class="col">Catégorie</div>
-			<div class="col">Actions</div>
+			<div class="col action-title">Actions</div>
 			<!-- <div class="col">Nombre commentaire(s)</div> -->
 		</div>
 	</div>
@@ -29,7 +29,7 @@
 		<div class="col"><?= $post->p_reporting ?></div>
 		<div class="col"><?= $post->p_category ?></div>
 		<div class="col">
-		<div class="btn-group" role="group" aria-label="actions">				
+		<div class="btn-group action-group" role="group" aria-label="actions">				
 			<a href="index.php?controller=post&task=show&id=<?= $post->p_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Voir l'article</a>
 			<!-- <a href="index.php?controller=post&task=update&id=<?= $post->p_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Modifier</a> -->
 			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#update-post" aria-expanded="false" aria-controls="collapseExample">
