@@ -13,6 +13,8 @@ class Comment extends Manager
 	protected $readingFields = "c_post_fk, c_author_fk, c_reporting, c_status, DATE_FORMAT(c_datetime, '%d/%m/%Y à %Hh%imin') AS c_datetime, c_title, c_content";
 	protected $values = ":c_post_fk, :c_author_fk, :c_reporting, :c_status, NOW(), :c_title, :c_content";
 	protected $set = "c_id = :c_id, c_post_fk = :c_post_fk, c_reporting = :c_reporting, c_status = :c_status, c_title = :c_title, c_content = :c_content, c_datetime = NOW()";
+	
+	protected $setReportingField = "c_id = :c_id, c_reporting = :c_reporting";
 		
 	protected $tableJoined1 = "post"; //Je sais pas s'il faut pas ça dans Manager
 	protected $tableJoined2 = "user";

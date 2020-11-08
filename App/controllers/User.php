@@ -55,9 +55,8 @@ class User extends Controller
 				$message = 'Le pseudo rentré est déjà utilisé, veuillez en choisir un autre';
 				$description = "Inscription invalide";
 				$author = "Tips People";
-				$cssFile = "/public/css/index.css";
 
-				\Renderer::render('message/error', compact('pageTitle', 'message', 'author', 'description', 'cssFile'));
+				\Renderer::render('message/error', compact('pageTitle', 'message', 'author', 'description'));
 			}
 			else
 			{
@@ -83,9 +82,7 @@ class User extends Controller
 
 				$author = "Invest People";
 
-				$cssFile = "/public/css/post/index.css";
-
-				\Renderer::render('user/register', compact('pageTitle', 'description' ,'nickname', 'author', 'cssFile'));
+				\Renderer::render('user/register', compact('pageTitle', 'description' ,'nickname', 'author'));
 			}
 		}
 	}
@@ -118,9 +115,8 @@ class User extends Controller
 			$message = 'Erreur de pseudo ou de mot de passe';
 			$description = "Connexion impossible";
 			$author = "Tips People";
-			$cssFile = "/public/css/index.css";
 
-			\Renderer::render('message/error', compact('pageTitle', 'message', 'author', 'description', 'cssFile'));
+			\Renderer::render('message/error', compact('pageTitle', 'message', 'author', 'description'));
 		}
 		elseif($nickname != null && $password != null && !empty($matchedUser))
 		{
@@ -150,9 +146,7 @@ class User extends Controller
 
 				$nickname = $_SESSION['u_nickname'];
 
-				$cssFile = "/public/css/post/index.css";
-
-				\Renderer::render('user/logged', compact('pageTitle', 'description' ,'nickname', 'author', 'cssFile'));
+				\Renderer::render('user/logged', compact('pageTitle', 'description' ,'nickname', 'author'));
 			}
 		}
 	}
@@ -165,13 +159,17 @@ class User extends Controller
 
 		$author = "Invest People";
 
-		$cssFile = "public/post/index.css";
-
-		\Renderer::render('user/profile', compact('pageTitle', 'description', 'author', 'cssFile'));
+		\Renderer::render('user/profile', compact('pageTitle', 'description', 'author'));
 	}
 
 	public function disconnect()
 	{
 		\Http::killSession();
+
+		$pageTitle = "Déconexion";
+		
+		$description = "Déconnexion effectuée avec succès";
+
+		\Renderer::render('user/profile', compact('pageTitle', 'description', 'author'));
 	}
 }

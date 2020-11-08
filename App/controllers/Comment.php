@@ -71,4 +71,64 @@ class Comment extends Controller
 		   //TODO ajax sur cette url 
 		\Http::redirect("index.php?controller=post&task=show&id=" . $idPost . "");
 	}
+
+	/* public function signalComment($commentId)
+	{
+		$signaledComment = new \models\entities\Comment(
+			[
+				'c_id' => $commentId,
+				'c_reporting' => 'Signalé'
+			]
+		);
+
+		$this->model->update('c_id', $signaledComment);
+
+		$pageTitle = "Demande prise en compte";
+		$description = "Signalement contenu";
+		$information = "Votre signalement à bien été pris en compte et sera examiné par notre équipe de modération";
+
+		\Renderer::render('info', compact('pageTitle', 'description', 'information'));
+	} */
+
+	public function signalComment()
+	{
+		var_dump($_POST['c_id_signal']);
+
+		$signaledComment = new \models\entities\Comment(
+			[
+				'c_id' => $_POST['c_id_signal'],
+				'c_reporting' => 'Signalé'
+			]
+		);
+
+		$this->model->updateReporting('c_id', $signaledComment);
+
+		$pageTitle = "Demande prise en compte";
+		$description = "Signalement contenu";
+		$information = "Votre signalement à bien été pris en compte et sera examiné par notre équipe de modération";
+		
+
+		\Renderer::render('info', compact('pageTitle', 'description', 'information'));
+	}
+
+	public function moderateComment()
+	{
+		var_dump($_POST['c_id_signal']);
+
+		$signaledComment = new \models\entities\Comment(
+			[
+				'c_id' => $_POST['c_id_signal'],
+				'c_reporting' => 'Modéré'
+			]
+		);
+
+		$this->model->updateReporting('c_id', $signaledComment);
+
+		$pageTitle = "Demande prise en compte";
+		$description = "Signalement contenu";
+		$information = "Ce commentaire est maintenant modéré";
+		
+
+		\Renderer::render('info', compact('pageTitle', 'description', 'information'));
+	}
 }

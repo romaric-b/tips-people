@@ -9,8 +9,7 @@
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link href="./public/css/header.css" rel="stylesheet" />
-	<link href="./public/css/index.css" rel="stylesheet" />
-	<link href="./public/css/<?= $cssFile ?>" rel="stylesheet" />
+	<link href="./public/css/index.css" rel="stylesheet" />	
     <!-- Custom fonts for this template -->
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
@@ -50,6 +49,17 @@
 							<a class="nav-link text-white posts-link" href="index.php?controller=post&task=index">Articles</a>
 							<!--<a class="nav-link posts-link" href="#">Articles</a>-->
 						</li> 
+						<?php if (isset($_SESSION['u_role']) && $_SESSION['u_role'] == 'Modérateur'):?>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="index.php?controller=post&task=dashboard">Gestion Articles</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="index.php?controller=comment&task=dashboard">Gestion Commentaires</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="index.php?controller=user&task=dashboard">Gestion Membres</a>
+						</li>
+						<?php endif;?>
 					<!-- Dropdown -->
 						
 					</ul>
@@ -160,6 +170,9 @@
 			?>"
 		>	
 	</div>
+	<!--TinyMCE-->
+	<!-- <script src="https://cdn.tiny.cloud/1/sguduqeo4kbrmiicmeazgnj892slxkt1nd2wz04afbus4c3y/tinymce/5/tinymce.min.js"></script>
+    <script>tinymce.init({selector:'.tinymce-edition', language : 'fr_FR'});</script> -->
 	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

@@ -53,3 +53,120 @@ h2.title-section
 	color: #fff;
 	padding: 0.5rem 0;
 }
+
+.wellcome--article, .info--article
+{
+	background-color: #C8D4EC;
+	display: flex;
+	flex-direction: column;
+	padding: 4rem;
+	margin-bottom: 2rem;
+	border-top: 6px solid #fed136;
+	border-radius: 2px;
+	box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,0.1);	
+}
+
+/* Personnal librera */
+.full-vh
+{
+	height : 100vh;
+}
+
+.text-color
+{
+	color: #212529;
+}
+
+/*Dashboard*/
+.bord-solid
+{
+	border: solid 1px black;
+}
+
+.flex
+{
+	display: flex;
+}
+
+.f-row
+{
+	flex-direction: row;
+}
+
+div.col
+{
+	color: #ffffff;
+	border: 1px solid #fff;
+}
+
+/*******************************
+
+SECTION POSTS AND CHILDS
+
+*******************************/
+section.container-posts
+{
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: space-between;	
+}
+
+section.container-posts article[class^=post]
+{
+	width: 31%;
+	background-color: #C8D4EC;
+	padding: 1rem;
+	margin-bottom: 2rem;
+	border-top: 6px solid #fed136;
+	border-radius: 2px;
+	box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,0.1);
+}
+
+article[class^=post]:hover
+{
+	/* transform: scale(1.1) 0.3s; */
+	transition: scale(1.1) 0.3s;
+}
+
+.post-connexion:hover
+{
+	/* font-size: 1.125rem; */
+	width: 62%;
+	transition: width 0.3s;
+	/* transform: all 0.3s; */
+}
+
+
+/*Post, comments*/
+article.post
+{
+	background-color: #C8D4EC;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	margin-bottom: 2rem;
+	border-top: 6px solid #fed136;
+	border-radius: 2px;
+	box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,0.1);
+}
+
+.container-comments
+{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.comment-info--span
+{
+	font-style: italic;
+}
+
+.comment--div
+{
+	background-color: #C8D4EC;
+	margin-bottom: 1rem;
+	border-radius: 2px;
+	width: 80%;
+}

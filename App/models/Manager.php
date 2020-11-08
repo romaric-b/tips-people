@@ -179,6 +179,40 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 		$query->execute($datas);
 
         return $query->execute();
+	}
+	
+	public function updateReporting(?string $id, ?object $entity)
+    {
+        //TODO les clé du set seront les mêmes que celle du execute donc 1 entrée retournera 2 résultats dont l'un en dessous pour le set et l'autre pour l'execute
+		//TODO dans le contrôleur ou ici il faudra utiliser une méthode transformant un array en string
+		//var_dump($entity);
+
+        $query = $this->pdo->prepare(
+            "UPDATE {$this->table}
+			 set {$this->setReportingField} WHERE {$this->updateForId}");
+			 
+			 var_dump($query);
+
+			$updateFields = $id . ', ' . $this->sqlFields;
+			 
+			$arrayFields = explode(", ", $updateFields);
+			
+			$datas = [];
+
+			foreach($arrayFields as $sqlField)
+			{
+				if (!is_null($entity->$sqlField))
+				{
+					$datas[$sqlField] = $entity->$sqlField; //peut-être sans le _get()
+				/* var_dump($datas[$sqlField]);
+				var_dump($entity->__get($sqlField)); */
+				}
+			}
+			//var_dump($datas);
+
+		$query->execute($datas);
+
+        return $query->execute();
     }
 
 

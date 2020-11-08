@@ -39,8 +39,6 @@ abstract class Controller
 	 */
 	public function dashboard()
 	{
-		$cssFile = "/dashboard.css";
-
 		if($this->modelName === '\models\User')
 		{
 			$items = $this->model->findAll();
@@ -65,7 +63,7 @@ abstract class Controller
 			$path = 'comment/dashboard';
 		}
 
-		\Renderer::render($path, compact('pageTitle', 'description', 'cssFile', 'items'));
+		\Renderer::render($path, compact('pageTitle', 'description', 'items'));
 	}
 	
 	/**

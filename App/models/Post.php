@@ -14,7 +14,7 @@ class Post extends Manager
 	protected $set = "p_id = :p_id, p_author_fk = :p_author_fk, p_title = :p_title, p_extract = :p_extract, p_content = :p_content, p_status = :p_status, p_reporting = :p_reporting, p_category = :p_category, p_datetime = NOW()";
 
 	//Pour les jointures
-	//protected $id = 'p_id';
+	protected $setReportingField = "p_id = :p_id, p_reporting = :p_reporting";
 
 	protected $tableJoined1 = "comment"; //Je sais pas s'il faut pas ça dans Manager
 	protected $tableJoined2 = "user";

@@ -1,3 +1,6 @@
+<?php if ($_SESSION['u_role'] == 'Modérateur' && !empty($_SESSION['u_role'])):	
+?>
+
 <h1><?= $pageTitle ?></h1>
 
 	<!-- <h3>Default</h3> -->
@@ -29,3 +32,7 @@
     </div>
     <?php endforeach; ?>
 </div>
+<?php endif;?>
+<?php if ($_SESSION['u_role'] != 'Modérateur' || empty($_SESSION['u_role'])):?>
+	<?php \Http::redirect("index.php?controller=post&task=index"); ?>
+<?php endif;?>

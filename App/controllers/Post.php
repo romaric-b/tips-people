@@ -76,9 +76,7 @@ class Post extends Controller
 
 		$author = "Invest People";
 
-		$cssFile = "post/index.css";
-
-        \Renderer::render('post/index', compact('pageTitle', 'posts', 'description', 'author', 'cssFile')); 
+        \Renderer::render('post/index', compact('pageTitle', 'posts', 'description', 'author')); 
 	}
 	
 	public function ajaxIndex()
@@ -112,12 +110,50 @@ class Post extends Controller
 
 		//Enregistré en session l'auteur ça me servira plus tard pour le droit de modification de l'article, même chose pour les commentaires
 		$_SESSION['p_author'] = $post->p_author_name;
-		
-		$cssFile = "post/post.css";
-
-		//var_dump($cssFile);
-		
+				
 		//Utiliser compact comme un array
-        \Renderer::render('post/post', compact('pageTitle', 'description', 'post', 'comments', 'author', 'cssFile'));
+        \Renderer::render('post/post', compact('pageTitle', 'description', 'post', 'comments', 'author'));
+	}
+
+	public function signalPost()
+	{
+		var_dump($_POST['p_id_signal']);
+
+		$signaledPost = new \models\entities\Post(
+			[
+				'p_id' => $_POST['p_id_signal'],
+				'p_reporting' => 'Signalé'
+			]
+		);
+
+		$this->model->updateReporting('p_id', $signaledPost);
+
+		$pageTitle = "Demande prise en compte";
+		$description = "Signalement contenu";
+		$information = "Votre signalement à bien été pris en compte et sera examiné par notre équipe de modération";
+		
+
+		\Renderer::render('info', compact('pageTitle', 'description', 'information'));
+	}
+
+	public function moderatePost()
+	{
+		var_dump($_POST['p_id_signal']);
+
+		$signaledPost = new \models\entities\Post(
+			[
+				'p_id' => $_POST['p_id_signal'],
+				'p_reporting' => 'Modéré'
+			]
+		);
+
+		$this->model->updateReporting('p_id', $signaledPost);
+
+		$pageTitle = "Demande prise en compte";
+		$description = "Signalement contenu";
+		$information = "Cet article est maintenant modéré";
+		
+
+		\Renderer::render('info', compact('pageTitle', 'description', 'information'));
 	}
 }

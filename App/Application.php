@@ -4,7 +4,7 @@
 class Application
 {
     /**
-     * Pour instancier dynamiquement le bon controller et appeler la bonne tâche PUTAIN C EST TROP GENIAL !!!
+     * Pour instancier dynamiquement le bon controller et appeler la bonne tâche
      */
     public static function process() 
     {
@@ -23,7 +23,6 @@ class Application
         }
 		//chemin d'instanciation
         $controllerName = "\controllers\\" . $controllerName;
-        // lui il échappe bizarrement //$controllerName = "\Controllers\\" . $controllerName;
 
 		$controller = new $controllerName(); //Equivaut à new PostController()
 		

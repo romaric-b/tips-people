@@ -1,3 +1,6 @@
+<?php if ($_SESSION['u_role'] == 'Modérateur' && !empty($_SESSION['u_role'])):	
+?>
+
 <h1><?= $pageTitle ?></h1>
 
 	<!-- <h3>Default</h3> -->
@@ -31,6 +34,11 @@
 		<div class="col">
 		<div class="btn-group action-group" role="group" aria-label="actions">				
 			<a href="index.php?controller=post&task=show&id=<?= $post->p_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Voir l'article</a>
+			<form target="_blank" action="index.php?controller=post&task=moderatePost" method="post">
+				<input type="hidden" name="p_id_signal" value="<?= $post->p_id ?>">
+				
+				<button type="submit" role="button">Retirer signalement</button>
+			</form>
 			<!-- <a href="index.php?controller=post&task=update&id=<?= $post->p_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Modifier</a> -->
 			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#update-post" aria-expanded="false" aria-controls="collapseExample">
 				Modifier cet article
@@ -52,10 +60,11 @@
 					<input name="p_title" id="p_title" type="text" value="<?= $post->p_title ?>" maxlength="150"></input>
 
 					<label for="message">Résumé de votre article</label>
-					<textarea rows="3" class="form-control" name="p_extract" placeholder="Tapez votre commentaire" id="message" required><?= $post->p_extract ?></textarea>
+					<textarea rows="3" class="tinymce-edition form-control" name="p_extract" placeholder="Tapez votre commentaire" id="message" required><?= $post->p_extract ?></textarea>
 
 					<label for="message">Contenu de votre article</label>
-					<textarea rows="10" class="form-control" name="p_content" placeholder="Tapez votre commentaire" id="p_content" required><?= $post->p_content ?></textarea>
+					<textarea rows="10" class="form-control tinymce-edition" name="p_content" placeholder="Tapez votre commentaire" id="p_content" required><?= $post->p_content ?></textarea>
+					
 				</div>
 			</div>
 			<br>
@@ -66,3 +75,7 @@
 		</form>
 	</div>
 </section>
+<?php endif;?>
+<?php if ($_SESSION['u_role'] != 'Modérateur' || empty($_SESSION['u_role']) || !isset($_SESSION['u_role'])):?>
+	<?php \Http::redirect("index.php?controller=post&task=index"); ?>
+<?php endif;?>
