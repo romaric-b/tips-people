@@ -1,7 +1,7 @@
-<?php if ($_SESSION['u_role'] == 'Modérateur' && !empty($_SESSION['u_role'])):	
+<?php if ($_SESSION['u_role'] == 'Modérateur' || $_SESSION['u_role'] == 'Administrateur' && !empty($_SESSION['u_role'])):	
 ?>
 
-<h1><?= $pageTitle ?></h1>
+<h1 class="title-page"><?= $pageTitle ?></h1>
 
 	<!-- <h3>Default</h3> -->
 <div role="table" class="pl-table">
@@ -33,8 +33,9 @@
 			<form action="index.php?controller=comment&task=moderateComment" method="post">
 				<input type="hidden" name="c_id_signal" value="<?= $comment->c_id ?>">
 				
-				<button type="submit" role="button">Retirer signalement</button>
+				<button type="submit" class="btn-warning mt-3" role="button">Retirer signalement</button>
 			</form>
+			<a href="index.php?controller=comment&task=delete&id=<?= $comment->c_id ?>" class="btn btn-danger mt-3 mb-3 p-1"><i class="fas fa-user-alt-slash"></i>Supprimer</a>
 		</div>
     </div>
     <?php endforeach; ?>

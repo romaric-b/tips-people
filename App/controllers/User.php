@@ -172,4 +172,40 @@ class User extends Controller
 
 		\Renderer::render('user/profile', compact('pageTitle', 'description', 'author'));
 	}
+
+	public function upgradeMember()
+	{
+		$upgradedMember = new \models\entities\User(
+			[
+				'u_id' => $_POST['u_id_upgrade'],
+				'u_role' => 'Modérateur'
+			]
+		);
+
+		$this->model->updateRole('u_id', $upgradedMember);
+
+		$pageTitle = "Demande prise en compte";
+		$description = "Promotion membre";
+		$information = "Ce membre est maintenant modérateur";
+
+		\Renderer::render('info', compact('pageTitle', 'description', 'information'));
+	}
+
+	public function downgradeMember()
+	{
+		$downgradedMember = new \models\entities\User(
+			[
+				'u_id' => $_POST['u_id_downgrade'],
+				'u_role' => 'Membre'
+			]
+		);
+
+		$this->model->updateRole('u_id', $downgradedMember);
+
+		$pageTitle = "Demande prise en compte";
+		$description = "Changement rôle";
+		$information = "Ce modérateur est de nouveau membre";
+
+		\Renderer::render('info', compact('pageTitle', 'description', 'information'));
+	}
 }

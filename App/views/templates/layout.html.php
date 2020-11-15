@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="<?= $description;  ?>">
-    <meta name="author" content="<?= $author = 'Invest People';  ?>">
+    <meta name="description" content="<?= $description;?>">
+    <meta name="author" content="<?= $author = 'Invest People';?>">
     <title><?= $title;  ?></title>
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -16,7 +16,7 @@
 <body>
 	<div class="page-container">
 		<nav class="navbar navbar-expand-md navbar-dark fixed-top" id="banner">
-			<div class="container">
+			<div class="container-lg">
 				<!-- Brand -->
 				<a class="navbar-brand" href="#"><span>Logo</span> Here</a>
 

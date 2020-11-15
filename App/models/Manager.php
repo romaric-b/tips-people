@@ -183,10 +183,6 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 	
 	public function updateReporting(?string $id, ?object $entity)
     {
-        //TODO les clé du set seront les mêmes que celle du execute donc 1 entrée retournera 2 résultats dont l'un en dessous pour le set et l'autre pour l'execute
-		//TODO dans le contrôleur ou ici il faudra utiliser une méthode transformant un array en string
-		//var_dump($entity);
-
         $query = $this->pdo->prepare(
             "UPDATE {$this->table}
 			 set {$this->setReportingField} WHERE {$this->updateForId}");
@@ -213,7 +209,9 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 		$query->execute($datas);
 
         return $query->execute();
-    }
+	}
+	
+	
 
 
     /**************************************************************************************************

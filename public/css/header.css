@@ -150,6 +150,12 @@ nav{-webkit-transition: padding-top .3s,padding-bottom .3s;
 {
 	color: #fff !important;
 }
+
+/*responsive menu opened*/
+div.navbar-collapse.collapse.show
+{
+	background-color: #212529;
+}
 /* *
 {
 	outline: solid magenta;

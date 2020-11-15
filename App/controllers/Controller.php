@@ -76,14 +76,25 @@ abstract class Controller
 		if($this->modelName === '\models\User')
 		{
 			$this->model->delete('u_id', $_GET['id']);
+
+			$information = "Ce membre est banni";
 		}
 		elseif($this->modelName === '\models\Post')
 		{
 			$this->model->delete('p_id', $_GET['id']);
+
+			$information = "Cet article est supprimé";
 		}
 		elseif($this->modelName === '\models\Comment')
 		{
 			$this->model->delete('c_id', $_GET['id']);
+
+			$information = "Ce commentaire est supprimé";
 		}
+
+		$pageTitle = "Demande prise en compte";
+		$description = "Suppression de la base effectuée";		
+
+		\Renderer::render('info', compact('pageTitle', 'description', 'information'));
     }
 }

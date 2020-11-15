@@ -1,6 +1,6 @@
 <?php if (isset($_SESSION['u_nickname']) && !empty($_SESSION['u_nickname'])):	
 ?>
-<section>
+<section class="profil--section">
 	<h1>Informations sur votre profil</h1>
 
 	<ul>

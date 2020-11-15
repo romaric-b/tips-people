@@ -1,7 +1,7 @@
-<?php if ($_SESSION['u_role'] == 'Modérateur' && !empty($_SESSION['u_role'])):	
+<?php if ($_SESSION['u_role'] == 'Modérateur' || $_SESSION['u_role'] == 'Administrateur' && !empty($_SESSION['u_role'])):	
 ?>
 
-<h1><?= $pageTitle ?></h1>
+<h1 class="title-page"><?= $pageTitle ?></h1>
 
 	<!-- <h3>Default</h3> -->
 <div role="table" class="pl-table">
@@ -32,18 +32,18 @@
 		<div class="col"><?= $post->p_reporting ?></div>
 		<div class="col"><?= $post->p_category ?></div>
 		<div class="col">
-		<div class="btn-group action-group" role="group" aria-label="actions">				
-			<a href="index.php?controller=post&task=show&id=<?= $post->p_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Voir l'article</a>
+		<div class="btn-group f-col action-group" role="group" aria-label="actions">				
+			<a href="index.php?controller=post&task=show&id=<?= $post->p_id ?>" class="btn btn-warning mt-3 p-1"><i class="fas fa-user-alt-slash"></i>Voir l'article</a>
 			<form target="_blank" action="index.php?controller=post&task=moderatePost" method="post">
 				<input type="hidden" name="p_id_signal" value="<?= $post->p_id ?>">
 				
-				<button type="submit" role="button">Retirer signalement</button>
+				<button type="submit" class="btn-warning mt-3" role="button">Retirer signalement</button>
 			</form>
 			<!-- <a href="index.php?controller=post&task=update&id=<?= $post->p_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Modifier</a> -->
-			<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#update-post" aria-expanded="false" aria-controls="collapseExample">
+			<button class="btn btn-warning mt-3" type="button" data-toggle="collapse" data-target="#update-post" aria-expanded="false" aria-controls="collapseExample">
 				Modifier cet article
 			</button>
-			<a href="index.php?controller=post&task=delete&id=<?= $post->p_id ?>" class="btn btn-danger p-1"><i class="fas fa-user-alt-slash"></i>Supprimer</a>
+			<a href="index.php?controller=post&task=delete&id=<?= $post->p_id ?>" class="btn btn-danger p-1 mt-3 mb-3"><i class="fas fa-user-alt-slash"></i>Supprimer</a>
 		</div>
 	</div>		
 		<!-- <div class="col">$post->p_nb_comment</div> -->

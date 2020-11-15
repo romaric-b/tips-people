@@ -12,7 +12,7 @@ else
 ?>
 
 <article class="post">
-	<h1><?= $post->p_title ?></h1>
+	<h1 class="title-page"><?= $post->p_title ?></h1>
 	<span>Ecrit le <?= $post->p_datetime ?> par <?= $post->p_author_name ?> </span>
 	<p><?= $post->p_content ?></p>
 	<form action="index.php?controller=post&task=signalPost" method="post">
