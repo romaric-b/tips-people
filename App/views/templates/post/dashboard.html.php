@@ -51,6 +51,15 @@
    <?php endforeach; ?>
 </div>
 
+<div class="text-white">Pages :</div>
+	<?php
+	for($i=1; $i<=$totalPages; $i++)
+	{
+		echo '<a class="text-white-50" href="index.php?controller=post&task=dashboard&page='.$i.'">'.$i.'</a> ';
+	}
+		?>
+</div>
+
 <section>
 	<div class="collapse" id="update-post">
 		<form class="marg-top" action="index.php?controller=post&task=update" method="post">

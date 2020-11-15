@@ -12,7 +12,7 @@ else
 ?>
 
 <article class="post">
-	<h1 class="title-page"><?= $post->p_title ?></h1>
+	<h1 class="title-post"><?= $post->p_title ?></h1>
 	<span>Ecrit le <?= $post->p_datetime ?> par <?= $post->p_author_name ?> </span>
 	<p><?= $post->p_content ?></p>
 	<form action="index.php?controller=post&task=signalPost" method="post">
@@ -122,7 +122,13 @@ else
 		</div>
 	<?php endif;?>		
 	<?php endforeach; ?>
-	
+	<div>Pages :</div>
+        <?php
+        for($i=1; $i<=$totalPages; $i++)
+        {
+            echo '<a class="text-white-50" href="index.php?controller=post&task=show&id='. $post->p_id . '&page='.$i.'">'.$i.'</a> ';
+        }
+            ?>
 	</div>
 <?php elseif($comments == NULL): ?>
 	<p class="font-italic">Aucun commentaire à afficher</p>

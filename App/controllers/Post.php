@@ -67,8 +67,21 @@ class Post extends Controller
 	//afficher les articles VERSION SYNCHRONE
     public function index()
     {
-        //récupéré les articles
-		$posts = $this->model->findAllWithTheirAuthor("p_datetime DESC");
+		$totalComments = count($this->model->findAllWithTheirAuthor("p_datetime DESC"));
+		$itemPerpage = 5;
+		$totalPages = ceil($totalComments/$itemPerpage); //ceil around superior number
+		
+		if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0)
+        {
+            $_GET['page'] = intval($_GET['page']); //return an entier value
+            $currentPage = $_GET['page'];
+        }
+        else
+        {
+            $currentPage = 1;
+		}
+		$start = ($currentPage - 1)*$itemPerpage;
+        $posts = $this->model->countItems($start, $itemPerpage, "p_datetime");
 		
 		$pageTitle = "Articles";
 		
@@ -76,7 +89,7 @@ class Post extends Controller
 
 		$author = "Invest People";
 
-        \Renderer::render('post/index', compact('pageTitle', 'posts', 'description', 'author')); 
+        \Renderer::render('post/index', compact('pageTitle', 'posts', 'description', 'author', 'totalPages')); 
 	}
 	
 	public function ajaxIndex()
@@ -90,10 +103,39 @@ class Post extends Controller
 
     public function show()
     { 
-		//var_dump($_GET['id']);
+		//$_GET['id'] will be define minimum one time (for page 1) so $_SESSION['p_id_actual'] too
+		//$_SESSION['p_id_actual'] = $_GET['id'];
+
+		//If we are on index view posts and want to see one of them, we've got 'id'
+		/* if(isset($_GET['id']))
+		{
+			$idToGo = $_GET['id'];
+		}
+		//If
+		elseif(!isset($_GET['id']))
+		{
+			$idToGo = $_SESSION['p_id_actual'];
+		} */
+		var_dump($_GET['id']);
 		//Montrer un article
 		$post = $this->model->findWithHisAuthor($_GET['id']);
-		$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
+		//$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
+		$totalComments = count($this->modelJoinded->findWithHisAuthor($_GET['id']));
+		$itemPerpage = 5;
+		$totalPages = ceil($totalComments/$itemPerpage); //ceil around superior number
+		
+		if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0)
+        {
+            $_GET['page'] = intval($_GET['page']); //return an entier value
+            $currentPage = $_GET['page'];
+        }
+        else
+        {
+            $currentPage = 1;
+		}
+		$start = ($currentPage - 1)*$itemPerpage;
+        $comments = $this->modelJoinded->countItems($start, $itemPerpage, $_GET['id']);
+
 		//TODO refactoriser la jointure dans le parent
 		$_SESSION['p_id'] = $post->p_id;
 
@@ -112,7 +154,7 @@ class Post extends Controller
 		$_SESSION['p_author'] = $post->p_author_name;
 				
 		//Utiliser compact comme un array
-        \Renderer::render('post/post', compact('pageTitle', 'description', 'post', 'comments', 'author'));
+        \Renderer::render('post/post', compact('pageTitle', 'description', 'post', 'comments', 'author', 'totalPages'));
 	}
 
 	public function signalPost()

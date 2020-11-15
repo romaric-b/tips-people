@@ -40,6 +40,14 @@
     </div>
     <?php endforeach; ?>
 </div>
+<div class="text-white">Pages :</div>
+	<?php
+	for($i=1; $i<=$totalPages; $i++)
+	{
+		echo '<a class="text-white-50" href="index.php?controller=comment&task=dashboard&page='.$i.'">'.$i.'</a> ';
+	}
+		?>
+</div>
 <?php elseif (!$_SESSION['u_role'] != 'Modérateur' || empty($_SESSION['u_role'])):?>
 	<?php \Http::redirect("index.php?controller=post&task=index"); ?>
 <?php endif;?>

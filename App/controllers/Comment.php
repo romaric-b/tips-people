@@ -34,10 +34,8 @@ class Comment extends Controller
 	//Utilisée en lecture ajax
 	public function ajaxComment()
 	{
-		//var_dump($_GET['id']);
 		$idPost = $_SESSION['p_id'];
 
-		//$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
 		$comments = $this->model->findWithHisAuthor($idPost);
 
 		echo json_encode($comments, JSON_UNESCAPED_UNICODE);

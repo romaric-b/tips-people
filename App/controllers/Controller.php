@@ -39,31 +39,52 @@ abstract class Controller
 	 */
 	public function dashboard()
 	{
+		if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0)
+        {
+            $_GET['page'] = intval($_GET['page']); //return an entier value
+            $currentPage = $_GET['page'];
+        }
+        else
+        {
+            $currentPage = 1;
+		}
+		$itemPerpage = 5;
+		$start = ($currentPage - 1)*$itemPerpage;
+
 		if($this->modelName === '\models\User')
 		{
-			$items = $this->model->findAll();
+			$totalItems = count($this->model->findAll());
+			$items = $this->model->countItems($start, $itemPerpage, 'u_datetime');
+			
 			$pageTitle = "Gestion des membres";
 			$description = "Administration et modération des membres";
 			$path = 'user/dashboard';
+			
 		}
 		elseif($this->modelName === '\models\Post')
 		{
-			$items = $this->model->findAllWithTheirAuthor();
+			$totalItems = count($this->model->findAllWithTheirAuthor());
+			$items = $this->model->countItems($start, $itemPerpage, "p_datetime");
 			
 			$pageTitle = "Gestion des articles";
 			$description = "Administration et modération des articles";
 			$path = 'post/dashboard';
+			
 		}
 		elseif($this->modelName === '\models\Comment')
 		{
-			$items = $this->model->findAllWithTheirAuthor('c_id = ?', "");
-
+			$totalItems = count($this->model->findAllWithTheirAuthor('c_id = ?', ""));
+			$items = $this->model->countItemsDashboard($start, $itemPerpage, "c_datetime");
+			
 			$pageTitle = "Gestion des commentaires";
 			$description = "Administration et modération des commentaires";
 			$path = 'comment/dashboard';
+			
 		}
 
-		\Renderer::render($path, compact('pageTitle', 'description', 'items'));
+		$totalPages = ceil($totalItems/$itemPerpage);
+
+		\Renderer::render($path, compact('pageTitle', 'description', 'items', 'totalPages'));
 	}
 	
 	/**

@@ -34,11 +34,21 @@ class Comment extends Manager
 
 
 	//Function of this class specialy
+
+	/**
+	 * Get comments with their author
+	 * Used in a post view
+	 *
+	 * @param integer|null $id
+	 * @param string|null $where
+	 * @param string|null $order
+	 * @return void
+	 */
 	public function findWithHisAuthor(?int $id, ?string $where = "", ?string $order = "")
 	{
 		//var_dump($id);
 		$sql = "SELECT
-		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, DATE_FORMAT(c_datetime, '%d/%m/%Y à %Hh%imin'), c_status, c_reporting, c_post_fk
+		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, DATE_FORMAT(c_datetime, '%d/%m/%Y à %Hh%imin') AS c_datetime, c_status, c_reporting, c_post_fk
 		FROM comment
 		INNER JOIN user ON c_author_fk = u_id
 		";
@@ -62,9 +72,6 @@ class Comment extends Manager
 		{
 			$sql .= " ORDER BY " . "c_datetime DESC";
 		}
-
-		//var_dump($sql);
-
 		//var_dump($sql);
 		$query = $this->pdo->prepare($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
@@ -74,12 +81,52 @@ class Comment extends Manager
 		$items = $query->fetchAll();
 
 		return $items;
-	}	
+	}
+
+	public function countItems($start, $itemPerpage, ?int $id, ?string $where = "", ?string $order = "")
+	{
+		$sql = "SELECT
+		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, DATE_FORMAT(c_datetime, '%d/%m/%Y à %Hh%imin') AS c_datetime, c_status, c_reporting, c_post_fk
+		FROM comment
+		INNER JOIN user ON c_author_fk = u_id		
+		";
+
+		//Conditions in request if parameter choosed
+		if ($where)
+		{
+			$sql .= " WHERE " . $where;
+		} 
+		elseif (empty($where))
+		{
+			/* $sql .= " WHERE = ?"; */
+			$sql .= "WHERE c_post_fk = " . $id;
+		}
+		if ($order)
+		{
+			$sql .= " ORDER BY " . $order; 
+		}
+		elseif (empty($order))
+		{
+			$sql .= " ORDER BY " . "c_datetime";
+		}
+
+		$sql .= " DESC LIMIT " . $start . "," . $itemPerpage;
+
+		var_dump($sql);
+		$query = $this->pdo->prepare($sql);
+		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
+		
+        $query->execute(array($id));
+		
+		$items = $query->fetchAll();
+
+		return $items;
+	}
 
 	public function findAllWithTheirAuthor(?string $order = "")
 	{
 		$sql = "SELECT
-		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, c_datetime, c_status, c_reporting, c_post_fk
+		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, DATE_FORMAT(c_datetime, '%d/%m/%Y à %Hh%imin') AS c_datetime, c_status, c_reporting, c_post_fk
 		FROM comment
 		INNER JOIN user ON c_author_fk = u_id
 		";
@@ -101,4 +148,27 @@ class Comment extends Manager
 
 		return $items;
 	}	
+
+	public function countItemsDashboard($start, $itemPerpage, ?string $order)
+	{
+		$sql = "SELECT
+		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, DATE_FORMAT(c_datetime, '%d/%m/%Y à %Hh%imin') AS c_datetime, c_status, c_reporting, c_post_fk
+		FROM comment
+		INNER JOIN user ON c_author_fk = u_id
+		";
+		
+		$sql .= " ORDER BY " . $order;	
+
+		$sql .= " DESC LIMIT " . $start . "," . $itemPerpage;
+
+		var_dump($sql);
+		$query = $this->pdo->prepare($sql);
+		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
+		
+        $query->execute();
+		
+		$items = $query->fetchAll();
+
+		return $items;
+	}
 }

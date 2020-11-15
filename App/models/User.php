@@ -44,4 +44,31 @@ class User extends Manager
 
         return $query->execute();
 	}
+
+	public function countItems($start, $itemPerpage, ?string $order) //TODO : sûrement besoin de fetchObject() vérifier aussi close req->cursor()
+    {		
+        $sql = "SELECT {$this->readingFields} FROM {$this->table}";
+        //Requete préparées sécurité ?
+        
+		$sql .= " ORDER BY " . $order; //je concatène à la var requête sql  pour rajouter à la fin l'ordre
+
+		$sql .= " DESC LIMIT " . $start . "," . $itemPerpage;
+		
+		//var_dump($sql);
+
+		$results = $this->pdo->query($sql);
+
+		//Je mets un majuscule à la table j'ai le nom d'entité
+		$entity = ucfirst($this->table);
+
+		$items = array();
+
+		//TODO vérifier si les entités fonctionnent autrement s'inspirer des requêtes à FETCH_OBJECT
+		while ($item = $results->fetchObject('models\entities\\' . $entity))
+		{
+			//Save result in an array
+			$items[] = $item;
+		}
+			return $items;		
+	}
 }

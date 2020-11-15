@@ -30,7 +30,7 @@ class Post extends Manager
 	public function findWithHisAuthor(?int $id, ?string $where = "", ?string $order = "")
 	{
 		$sql = "SELECT
-		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin'), p_status, p_reporting, p_category
+		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin') AS p_datetime, p_status, p_reporting, p_category
 		FROM post
 		INNER JOIN user ON p_author_fk = u_id
 		";
@@ -78,21 +78,10 @@ class Post extends Manager
 	public function findAllWithTheirAuthor(?string $order = "p_datetime DESC")
 	{
 		$sql = "SELECT
-		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, p_datetime, p_status, p_reporting, p_category
+		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin') AS p_datetime, p_status, p_reporting, p_category
 		FROM post
 		INNER JOIN user ON p_author_fk = u_id
 		";
-
-		//Conditions in request if parameter choosed
-		/* 
-		if ($order)
-		{
-			$sql .= " ORDER BY " . $order; 
-		}
-		elseif (empty($order))
-		{
-			$sql .= " ORDER BY p_id";
-		} */
 
 		if($order)
         {
@@ -100,12 +89,7 @@ class Post extends Manager
 		}
 
 		$query = $this->pdo->query($sql);
-		//$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\Post');
-
-		//var_dump($query);
-		//$items = [];
-		/* $object = new \models\entities\PostView(); */
 	
         $query->execute();
 		//test :
@@ -122,5 +106,29 @@ class Post extends Manager
 		//var_dump($object);
 
 		return $items;
-	}	
+	}
+
+	public function countItems($start, $itemPerpage, ?string $order)
+	{
+		$sql = "SELECT
+		u_nickname AS p_author_name, p_id, p_extract, p_author_fk, p_title, p_content, DATE_FORMAT(p_datetime, '%d/%m/%Y à %Hh%imin') AS p_datetime, p_status, p_reporting, p_category
+		FROM post
+		INNER JOIN user ON p_author_fk = u_id
+		";
+
+		//Conditions in request if parameter choosed
+		$sql .= " ORDER BY " . $order; //je concatène à la var requête sql  pour rajouter à la fin l'ordre	
+
+		$sql .= " DESC LIMIT " . $start . "," . $itemPerpage;
+
+		var_dump($sql);
+		$query = $this->pdo->prepare($sql);
+		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\Post');
+		
+        $query->execute();
+		
+		$items = $query->fetchAll();
+
+		return $items;
+	}
 }

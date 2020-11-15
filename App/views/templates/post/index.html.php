@@ -59,10 +59,20 @@ else
 					</article>
 				<?php endforeach; ?> 
 
+			
+
 			<?php elseif($posts == NULL): ?>
 				<p class="font-italic">Aucun article à afficher</p>
 			<?php endif; ?>
 		</section>	
+		<div class="text-white">Pages :</div>
+			<?php
+			for($i=1; $i<=$totalPages; $i++)
+			{
+				echo '<a class="text-white-50" href="index.php?controller=post&task=index&page='.$i.'">'.$i.'</a> ';
+			}
+				?>
+		</div>
 	</div>
 
 	<div class="right-bloc receive-flux-twitter">
