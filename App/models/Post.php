@@ -51,11 +51,9 @@ class Post extends Manager
 			$sql .= " ORDER BY " . $order; 
 		}
 
-		//var_dump($sql);
 		$query = $this->pdo->prepare($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
 
-		//var_dump($query);
 		//$items = [];
 		/* $object = new \models\entities\PostView(); */
 	
@@ -70,7 +68,6 @@ class Post extends Manager
 		$item = $query->fetch();
 
 		//$object = new \models\entities\PostView($items);
-		//var_dump($object);
 
 		return $item;
 	}	
@@ -101,10 +98,6 @@ class Post extends Manager
 		} */
 		$items = $query->fetchAll();
 
-		//var_dump($item);
-		//$object = new \models\entities\PostView($items);
-		//var_dump($object);
-
 		return $items;
 	}
 
@@ -121,7 +114,6 @@ class Post extends Manager
 
 		$sql .= " DESC LIMIT " . $start . "," . $itemPerpage;
 
-		var_dump($sql);
 		$query = $this->pdo->prepare($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\Post');
 		

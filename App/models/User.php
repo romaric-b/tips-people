@@ -10,7 +10,7 @@ class User extends Manager
 	protected $table = "user";
 	protected $sqlFields = "u_nickname, u_datetime, u_email, u_password, u_role";
 	protected $readingFields = "u_id, u_nickname, DATE_FORMAT(u_datetime, '%d/%m/%Y à %Hh%imin')AS u_datetime, u_email, u_password, u_role";
-	protected $values = ":u_id, :u_nickname, NOW(), :u_email, :u_password, :u_role";
+	protected $values = ":u_nickname, NOW(), :u_email, :u_password, :u_role";
 	protected $set = "u_nickname = :u_nickname, u_datetime = NOW(), u_email = :u_email, u_password = :u_password, u_role = :u_role";
 
 	protected $updateForId = "u_id = :u_id";
@@ -34,9 +34,7 @@ class User extends Manager
 			{
 				if (!is_null($entity->$sqlField))
 				{
-					$datas[$sqlField] = $entity->$sqlField; //peut-être sans le _get()
-				/* var_dump($datas[$sqlField]);
-				var_dump($entity->__get($sqlField)); */
+					$datas[$sqlField] = $entity->$sqlField; //peut-être sans le _get()				
 				}
 			}
 
@@ -54,8 +52,6 @@ class User extends Manager
 
 		$sql .= " DESC LIMIT " . $start . "," . $itemPerpage;
 		
-		//var_dump($sql);
-
 		$results = $this->pdo->query($sql);
 
 		//Je mets un majuscule à la table j'ai le nom d'entité

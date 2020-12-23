@@ -43,11 +43,8 @@ class Comment extends Controller
 
 	public function update()
 	{
-		//var_dump('dans control update');
 		$idUser = $_SESSION['u_id'];
 		$idPost = $_SESSION['p_id'];
-		//var_dump($_GET['id']);
-		//var_dump($_POST['c_id']);
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedComment = new \models\entities\Comment(
@@ -61,8 +58,6 @@ class Comment extends Controller
 				'c_status' => 'Non lu'
 			]
 		);
-
-		//var_dump($udaptedComment);
 		
 		$this->model->update('c_id', $udaptedComment);
 		   //\Http::redirect("index.php?controller=post&task=show&id=" . ' . $_GET['id'] . '); 	   	
@@ -90,8 +85,6 @@ class Comment extends Controller
 
 	public function signalComment()
 	{
-		var_dump($_POST['c_id_signal']);
-
 		$signaledComment = new \models\entities\Comment(
 			[
 				'c_id' => $_POST['c_id_signal'],
@@ -111,8 +104,6 @@ class Comment extends Controller
 
 	public function moderateComment()
 	{
-		var_dump($_POST['c_id_signal']);
-
 		$signaledComment = new \models\entities\Comment(
 			[
 				'c_id' => $_POST['c_id_signal'],

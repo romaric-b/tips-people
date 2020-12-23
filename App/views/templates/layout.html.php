@@ -80,7 +80,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form class="d-flex flex-column" action="index.php?controller=user&task=insert" method="POST">
+						<form id="register-form" class="d-flex flex-column">
 							<p>
 								<span>* Ces champs sont obligatoires</span>
 								<label class="d-flex flex-column" for="regist--nickname">Entrez votre pseudo comportant 1 à 30 caractères * :
@@ -93,7 +93,7 @@
 									<input type="password" name="u_password" placeholder="Mot de passe" id="regist--password" required/>
 								</label>
 								<label class="d-flex flex-column" for="regist--password">Retapez votre mot de passe * :
-									<input type="password" name="u_password2" placeholder="Mot de passe" id="regist--password" required/>
+									<input type="password" name="u_password2" placeholder="Mot de passe" id="regist--password-two" required/>
 								</label>						
 							</p>
 							<p>

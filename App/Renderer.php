@@ -19,7 +19,7 @@ class Renderer //faire du rendu
 		ob_start();
 
 		require('views/templates/' . $path . '.html.php');
-		//var_dump($pageContent);
+		
         $pageContent = ob_get_clean();
 
         require('views/templates/layout.html.php');

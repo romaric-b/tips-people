@@ -41,7 +41,6 @@ class Post extends Controller
 	{
 		$idUser = $_SESSION['u_id'];
 		$idPost = $_SESSION['p_id'];
-		//var_dump($idPost);
 		
 		//rappel, a ce stade l'id de l'article dans lequel j'insère le post je l'ai, idem pour l'utilisateur qui post
 		$udaptedPost = new \models\entities\Post(
@@ -116,7 +115,6 @@ class Post extends Controller
 		{
 			$idToGo = $_SESSION['p_id_actual'];
 		} */
-		var_dump($_GET['id']);
 		//Montrer un article
 		$post = $this->model->findWithHisAuthor($_GET['id']);
 		//$comments = $this->modelJoinded->findWithHisAuthor($_GET['id']);
@@ -140,9 +138,7 @@ class Post extends Controller
 		$_SESSION['p_id'] = $post->p_id;
 
 		//utilisateur actuellement connecté, pour comparaison utlérieur
-		//$loggedUser = $_SESSION['u_nickname'];
-		//var_dump($post);
-		//var_dump($item);
+		//$loggedUser = $_SESSION['u_nickname'];		
 		$pageTitle = $post->p_title; //head page (SEO)
 		
 		
@@ -159,8 +155,6 @@ class Post extends Controller
 
 	public function signalPost()
 	{
-		var_dump($_POST['p_id_signal']);
-
 		$signaledPost = new \models\entities\Post(
 			[
 				'p_id' => $_POST['p_id_signal'],
@@ -180,8 +174,6 @@ class Post extends Controller
 
 	public function moderatePost()
 	{
-		var_dump($_POST['p_id_signal']);
-
 		$signaledPost = new \models\entities\Post(
 			[
 				'p_id' => $_POST['p_id_signal'],

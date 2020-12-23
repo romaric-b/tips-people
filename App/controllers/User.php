@@ -70,19 +70,19 @@ class User extends Controller
 						'u_nickname' => $nickname,
 						'u_email' => $email,
 						'u_password' => $password,
-						'u_role' => 'Nouveau Membre'
+						'u_role' => 'Membre'
 					]
 				);
 
 				$this->model->create($user);
 			
-				$pageTitle = "Bienvenue";			
+				/* $pageTitle = "Bienvenue";			
 
 				$description = "Bienvenue sur Tips People, la communauté francophone d'investisseurs.";
 
 				$author = "Invest People";
 
-				\Renderer::render('user/register', compact('pageTitle', 'description' ,'nickname', 'author'));
+				\Renderer::render('user/register', compact('pageTitle', 'description' ,'nickname', 'author')); */
 			}
 		}
 	}
@@ -132,9 +132,6 @@ class User extends Controller
 				$_SESSION['u_role'] = $matchedUser['u_role'];
 				$_SESSION['u_email'] = $matchedUser['u_email'];
 				$_SESSION['u_datetime'] = $matchedUser['u_datetime'];
-
-				/* var_dump($_SESSION['u_nickname']);
-				var_dump($_SESSION['u_role']); */
 
 				//TODO à refacto
 

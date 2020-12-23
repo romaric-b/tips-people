@@ -46,7 +46,6 @@ class Comment extends Manager
 	 */
 	public function findWithHisAuthor(?int $id, ?string $where = "", ?string $order = "")
 	{
-		//var_dump($id);
 		$sql = "SELECT
 		u_nickname AS c_author_name, c_id, c_author_fk, c_title, c_content, DATE_FORMAT(c_datetime, '%d/%m/%Y à %Hh%imin') AS c_datetime, c_status, c_reporting, c_post_fk
 		FROM comment
@@ -72,7 +71,7 @@ class Comment extends Manager
 		{
 			$sql .= " ORDER BY " . "c_datetime DESC";
 		}
-		//var_dump($sql);
+
 		$query = $this->pdo->prepare($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
 		
@@ -112,7 +111,6 @@ class Comment extends Manager
 
 		$sql .= " DESC LIMIT " . $start . "," . $itemPerpage;
 
-		var_dump($sql);
 		$query = $this->pdo->prepare($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
 		
@@ -137,8 +135,6 @@ class Comment extends Manager
 		{
 			$sql .= " ORDER BY " . $order; 
 		} */
-
-		//var_dump($sql);
 		$query = $this->pdo->query($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
 	
@@ -161,7 +157,6 @@ class Comment extends Manager
 
 		$sql .= " DESC LIMIT " . $start . "," . $itemPerpage;
 
-		var_dump($sql);
 		$query = $this->pdo->prepare($sql);
 		$query->setFetchMode(PDO::FETCH_CLASS, 'models\entities\PostView');
 		

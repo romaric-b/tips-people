@@ -36,10 +36,18 @@ function caracterNumber(field, minCaracterNb, maxCaracterNb)
 
 function emailFormat(field)
 {
-	const regex = /([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/gm;
+	//test "fake@gmail.com"
+	//version PHP "/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix" //ok
+	//const regex = /([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/gm; //invalid	
+	const regex = /([a-z0-9+-]+)(.[a-z0-9+-]+)*@([a-z0-9-]+.)+[a-z]{2,6}$/; //invalid
 	
-	if (regex.test($(field)))
+	console.log(regex);
+	var email = $(field).val();
+	console.log(email)
+
+	if (regex.test(email))
 	{
+		console.log('valid email');
 		return;
 	}
 	else
@@ -54,6 +62,7 @@ function matchingPasswords(field, field2)
 {
 	if ($(field).val() == $(field2).val ())
 	{
+		console.log('valid pass');
 		return;
 	}
 	else
@@ -100,3 +109,52 @@ $('#formCommentAjax').on('submit', function(e)
 	caracterNumber('#c_content_update', 100, 5000);
 	updateComment(e); 
 }); */
+
+$('#register-form').on('submit', function(e)
+{
+	caracterNumber('#regist--nickname', 1, 30);
+	emailFormat('#regist--email');
+	caracterNumber('#regist--password', 1, 30);
+	caracterNumber('#regist--password-two', 1, 30);
+	matchingPasswords('#regist--password', '#regist--password-two');
+
+	e.preventDefault();
+	const u_nickname = $('#regist--nickname');
+	const u_email = $('#regist--email');
+	const u_password = $('#regist--password');
+
+	const data = new FormData();
+
+	//TODO récupérer l'intérieur des input
+	data.append('u_nickname', u_nickname.val());
+	data.append('u_email', u_email.val());
+	data.append('u_password', u_password.val());
+
+	/* console.log(data); */ 
+	console.log(Array.from(data.values()));
+
+	const request = new XMLHttpRequest;
+	
+	//Direction le controller PHP
+	request.open('POST', 'index.php?controller=user&task=insert');
+	console.log('passe');
+
+	Registred = false;
+
+	request.onload = function()
+	{
+		if(Registred == false)
+		{
+			$('#register-form').after('<span>Votre inscription a bien été prise en compte et comment a bien me casser les couilles, je vais pas GET tes données alors que t as même pas validé le mail sale baltringue, retourne bosser au lieu de t inscrire sur mon site bugué !</span>');
+
+			var Registred = true;
+		}
+		else
+		{
+			$('#register-form').after('<span>Vous êtes déjà inscrit, si vous souhaitez inscrire un nouveau compte merci de rafraichir cette page</span>');
+			
+		}
+	}
+
+	request.send(data);
+});

@@ -39,24 +39,20 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
                 ({$this->sqlFields})
 				VALUES ({$this->values})");
 
-				/* var_dump($entity);
-				var_dump($query); */
-
 			$arrayFields = explode(", ", $this->sqlFields);
 		
 			$datas = [];
+
+			var_dump($query);
 
 			foreach($arrayFields as $sqlField)
 			{
 				if (!is_null($entity->$sqlField))
 				{
-					//*  */var_dump($sqlField);
 					$datas[$sqlField] = $entity->$sqlField;
 				}
 				//$datas[$sqlField] = $entity->__get($sqlField); //passe par _get de toute façon
 			}
-			
-			//var_dump($datas);
 
         $query->execute($datas);
     }
@@ -75,12 +71,9 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      */
     public function find(int $id) //TODO : sûrement besoin de fetchObject()  vérifier aussi close req->cursor()
     {
-		//var_dump($id);
         $query = $this->pdo->prepare("SELECT {$this->readingFields} FROM {$this->table} WHERE {$this->id} = :{$this->id}");
 		//Requete préparées sécurité ?
 		
-		/* var_dump($this->id); */
-		//var_dump($this->id);
         $query->execute(array($this->id => $id));
         $item = $query->fetch();
         return $item;
@@ -92,8 +85,6 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 		//Requete préparées sécurité ?
 		
 		//$query .= " where " . $col . " = " . $value;
-
-		//var_dump($query);		
 		
         $query->execute(array($col => $value));
         $item = $query->fetch();
@@ -112,7 +103,6 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
         {
             $sql .= " ORDER BY " . $order; //je concatène à la var requête sql  pour rajouter à la fin l'ordre
 		}
-		//var_dump($sql);
 
 		$results = $this->pdo->query($sql);
 
@@ -151,14 +141,11 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
     {
         //TODO les clé du set seront les mêmes que celle du execute donc 1 entrée retournera 2 résultats dont l'un en dessous pour le set et l'autre pour l'execute
 		//TODO dans le contrôleur ou ici il faudra utiliser une méthode transformant un array en string
-		//var_dump($entity);
-
+	
         $query = $this->pdo->prepare(
             "UPDATE {$this->table}
 			 set {$this->set} WHERE {$this->updateForId}");
-			 
-			 //var_dump($query);
-
+			
 			$updateFields = $id . ', ' . $this->sqlFields;
 			 
 			$arrayFields = explode(", ", $updateFields);
@@ -169,12 +156,9 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 			{
 				if (!is_null($entity->$sqlField))
 				{
-					$datas[$sqlField] = $entity->$sqlField; //peut-être sans le _get()
-				/* var_dump($datas[$sqlField]);
-				var_dump($entity->__get($sqlField)); */
+					$datas[$sqlField] = $entity->$sqlField; //peut-être sans le _get()			
 				}
 			}
-			//var_dump($datas);
 
 		$query->execute($datas);
 
@@ -187,8 +171,6 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
             "UPDATE {$this->table}
 			 set {$this->setReportingField} WHERE {$this->updateForId}");
 			 
-			 var_dump($query);
-
 			$updateFields = $id . ', ' . $this->sqlFields;
 			 
 			$arrayFields = explode(", ", $updateFields);
@@ -200,11 +182,8 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
 				if (!is_null($entity->$sqlField))
 				{
 					$datas[$sqlField] = $entity->$sqlField; //peut-être sans le _get()
-				/* var_dump($datas[$sqlField]);
-				var_dump($entity->__get($sqlField)); */
 				}
 			}
-			//var_dump($datas);
 
 		$query->execute($datas);
 
@@ -227,10 +206,8 @@ abstract class Manager //Abastract empeche cette class d'être directement insta
      */
     public function delete(?string $column,int $id):void
     {
-		//var_dump($id);
 		$query = $this->pdo->prepare("DELETE FROM {$this->table} WHERE $column = :id");
 		
-		//var_dump($query);
         //Requete préparées sécurité ?
         $query->execute(['id' => $id]);
     }

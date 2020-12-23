@@ -120,12 +120,12 @@ section.container-posts
 	display: flex;
 	flex-wrap: wrap;
 	width: 100%;
-	justify-content: space-between;	
 }
 
 section.container-posts article[class^=post]
 {
 	width: 31%;
+	margin-right: 1%;
 	background-color: #C8D4EC;
 	padding: 1rem;
 	margin-bottom: 2rem;
